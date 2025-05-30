@@ -74,6 +74,10 @@ SUPER + SHIFT + B                     : Rofi Bluetooth Connect
 
 SUPER + SHIFT + O                     : Rofi Play Music
 
+          📹 Video
+
+SUPER + SHIFT + V                     : Rofi Video Keybinds
+
           ⌨️ Hyprland Keybinds
 
 SUPER + SHIFT + I                     : Hypr Key Bind
