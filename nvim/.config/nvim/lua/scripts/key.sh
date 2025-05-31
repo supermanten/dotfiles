@@ -80,6 +80,7 @@ Shift+l                         : Next Buffer (Normal Mode)
 
 💻 ToggleTerm
 Space+t                         : ToggleTerm (Normal Mode)
+Esc+Esc                         : Exit ToggleTerm(Terminal Mode)   
 
 ↕️ Navigate Panes
 Control+k                       : Move up pane

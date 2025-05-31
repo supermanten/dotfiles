@@ -63,6 +63,7 @@ map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
 
 -- toggle-term
 map("n", "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "ToggleTerm" })
+map("t", "<esc><esc>", "<cmd>ToggleTerm<cr>", { desc = " Exit ToggleTerm" })
 
 -- Navigate vim panes better
 map("n", "<c-k>", ":wincmd k<CR>")
