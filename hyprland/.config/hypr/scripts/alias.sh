@@ -58,7 +58,6 @@ pe                              : paru -Qe
 
 🖥️ System Utilities
 df                              : df -h
-du                              : du -h
 free                            : free -h
 top                             : btop
 

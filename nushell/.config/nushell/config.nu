@@ -86,7 +86,6 @@ alias pe = paru -Qe
 
 # System utilities
 alias df = df -h
-alias du = du -h
 alias free = free -h
 alias top = btop
 
