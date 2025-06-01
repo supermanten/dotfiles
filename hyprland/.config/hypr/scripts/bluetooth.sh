@@ -1,145 +1,236 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# --- Configuration ---
-# Number of retries for connecting
-MAX_RETRIES=5
-# Delay between connection attempts (in seconds)
-RETRY_DELAY=3
-# Scan duration for new devices (in seconds)
-SCAN_DURATION=7
-# Delay after restarting Bluetooth service (in seconds)
-BLUETOOTH_RESTART_DELAY=2
+# ┏━━━┳━━┳━┓┏━┳━━━┳┓╋╋┏━━┳━┓┏━┓
+# ┗┓┏┓┣┫┣┫┃┗┛┃┃┏━━┫┃╋╋┗┫┣┻┓┗┛┏┛
+# ╋┃┃┃┃┃┃┃┏┓┏┓┃┗━━┫┃╋╋╋┃┃╋┗┓┏┛
+# ╋┃┃┃┃┃┃┃┃┃┃┃┃┏━━┫┃╋┏┓┃┃╋┏┛┗┓
+# ┏┛┗┛┣┫┣┫┃┃┃┃┃┃╋╋┃┗━┛┣┫┣┳┛┏┓┗┓
+# ┗━━━┻━━┻┛┗┛┗┻┛╋╋┗━━━┻━━┻━┛┗━┛
+# The program was created by DIMFLIX
+# Github: https://github.com/DIMFLIX-OFFICIAL
+# Bluetooth functions adapted by Gemini
 
-# --- Helper Functions ---
+SESSION_TYPE="$XDG_SESSION_TYPE"
+ENABLED_COLOR="#A3BE8C"
+DISABLED_COLOR="#D35F5E"
+BLUETOOTH_CONNECTED_ICON=" "
 
-# Function to display notifications
-send_notification() {
-    notify-send "Bluetooth Manager" "$1"
-}
+# Function to get Bluetooth status for status bar
+get_bluetooth_status() {
+    local status_icon="" # Default icon for Bluetooth
+    local status_color=$DISABLED_COLOR
 
-# Function to ensure Bluetooth is powered on and agent is ready
-setup_bluetooth() {
-    send_notification "Ensuring Bluetooth is ready..."
-
-    bluetoothctl power on || { send_notification "Error: Could not power on Bluetooth."; exit 1; }
-    bluetoothctl agent on || { send_notification "Error: Could not enable Bluetooth agent."; exit 1; }
-    # As discussed previously, if 'default-agent' causes issues, you might want
-    # to uncomment the service restart and delay here, or ensure you're in the 'bluetooth' group.
-    # bluetoothctl default-agent || {
-    #     send_notification "Error: Could not set default Bluetooth agent. Try adding yourself to 'bluetooth' group: 'sudo usermod -aG bluetooth $USER' then log out and back in."
-    #     exit 1
-    # }
-}
-
-# Function to connect to a device
-connect_device() {
-    local device_mac="$1"
-    send_notification "Attempting to connect to $device_mac..."
-
-    for ((i=1; i<=MAX_RETRIES; i++)); do
-        send_notification "Connection attempt $i/$MAX_RETRIES for $device_mac..."
-        if bluetoothctl connect "$device_mac" | grep -q "Connection successful"; then
-            send_notification "✔  Connected successfully to $device_mac!"
-            return 0
-        fi
-        sleep "$RETRY_DELAY"
-    done
-
-    send_notification "✖  Failed to connect to $device_mac after $MAX_RETRIES attempts."
-    return 1
-}
-
-# Function to disconnect a device
-disconnect_device() {
-    local device_mac="$1"
-    send_notification "Attempting to disconnect $device_mac..."
-
-    # Attempt to disconnect
-    bluetoothctl disconnect "$device_mac" &>/dev/null
-
-    # Give a tiny moment for the status to update
-    sleep 0.5
-
-    # Check the actual connection status
-    if bluetoothctl info "$device_mac" | grep -q "Connected: no"; then
-        send_notification "✔ Disconnected successfully from $device_mac!"
-
-        # --- New: Prompt to disable Bluetooth ---
-        local disable_bluetooth_prompt=$(echo -e "Yes\nNo" | rofi -dmenu -i -p "Turn off Bluetooth completely?")
-        if [[ "$disable_bluetooth_prompt" == "Yes" ]]; then
-            send_notification "Turning off Bluetooth..."
-            if bluetoothctl power off; then
-                send_notification "✔ Bluetooth is now OFF."
+    if systemctl is-active --quiet bluetooth.service; then
+        if bluetoothctl show | grep -q "Powered: yes"; then
+            status_color=$ENABLED_COLOR
+            # Check for connected devices
+            if bluetoothctl devices Connected | grep -q "Device"; then
+                status_icon="󰂯" # Icon for connected
             else
-                send_notification "✖ Failed to turn off Bluetooth."
+                status_icon="󰂲" # Icon for enabled but no connection
             fi
         fi
-        # --- End New ---
+    fi
 
-        return 0
-    else
-        send_notification "! Failed to disconnect from $device_mac (device might still be connected or in a transient state)."
-        return 1
+    if [[ "$SESSION_TYPE" == "wayland" ]]; then
+        echo "<span color=\"$status_color\">$status_icon</span>"
+    elif [[ "$SESSION_TYPE" == "x11" ]]; then
+        echo "%{F$status_color}$status_icon%{F-}"
     fi
 }
 
-# --- Main Execution ---
-
-# 1. Setup Bluetooth environment
-setup_bluetooth
-
-# 2. Get available Bluetooth devices and construct Rofi options
-DEVICE_OPTIONS=""
-CONNECTED_DEVICES=$(bluetoothctl devices Connected | awk '{print $2, $3, $4, $5}')
-PAIRED_DEVICES=$(bluetoothctl devices Paired | awk '{print $2, $3, $4, $5}')
-ALL_DEVICES=$(bluetoothctl devices | awk '{print $2, $3, $4, $5}')
-
-# Add connected devices with a disconnect option
-if [[ -n "$CONNECTED_DEVICES" ]]; then
-    while read -r mac name; do
-        DEVICE_OPTIONS+="Disconnect $name ($mac) - $mac\n" # Format for rofi
-    done <<< "$CONNECTED_DEVICES"
-fi
-
-# Add other paired/available devices with a connect option (excluding already listed connected ones)
-# We use sort -u to prevent duplicates and filter out MACs already in CONNECTED_DEVICES
-DISCONNECT_MACS=$(echo -e "$DEVICE_OPTIONS" | awk '{print $NF}') # Extract MACs from disconnect options
-ALL_UNIQUE_DEVICES=$( (echo "$PAIRED_DEVICES"; echo "$ALL_DEVICES") | sort -u )
-
-while read -r mac name; do
-    if ! echo "$DISCONNECT_MACS" | grep -q "$mac"; then # Only add if not already in disconnect options
-        DEVICE_OPTIONS+="Connect $name ($mac) - $mac\n"
+# Function to manage Bluetooth devices
+manage_bluetooth() {
+    local bluetooth_powered=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
+    if [[ "$bluetooth_powered" == "no" ]]; then
+        notify-send "Bluetooth Disabled" "Please enable Bluetooth first."
+        return
     fi
-done <<< "$ALL_UNIQUE_DEVICES"
 
-# 3. Present options to user via Rofi
-SELECTED_OPTION=$(echo -e "$DEVICE_OPTIONS" | rofi -dmenu -i -p "Bluetooth Actions:")
+    # Scan for new devices in the background
+    bluetoothctl scan on & > /dev/null
+    local scan_pid=$! # Get PID of the background scan process
 
-[[ -z "$SELECTED_OPTION" ]] && exit 0 # User cancelled
+    # Give it a moment to discover devices
+    sleep 2
 
-# 4. Parse selected option and perform action
-ACTION=$(echo "$SELECTED_OPTION" | awk '{print $1}') # "Connect" or "Disconnect"
-DEVICE_MAC=$(echo "$SELECTED_OPTION" | awk '{print $NF}') # Last field is the MAC address
+    local devices_raw=$(bluetoothctl devices Paired | grep "Device" | cut -d ' ' -f 2- | sed 's/^Device //')
+    local available_devices_raw=$(bluetoothctl devices | grep "Device" | cut -d ' ' -f 2- | sed 's/^Device //')
+    local device_list=""
+    local macs=()
+    local names=()
 
-if [[ "$ACTION" == "Connect" ]]; then
-    # Before connecting, ensure the device is known/available.
-    # This block is similar to the original, but placed before the connect attempt.
-    if ! bluetoothctl info "$DEVICE_MAC" &>/dev/null; then
-        send_notification "... Device $DEVICE_MAC not found. Scanning for new devices..."
-        bluetoothctl scan on &
-        SCAN_PID=$!
-        sleep "$SCAN_DURATION"
-        kill "$SCAN_PID" &>/dev/null
-        bluetoothctl scan off &>/dev/null
-        if ! bluetoothctl info "$DEVICE_MAC" &>/dev/null; then
-            send_notification "✖  Device $DEVICE_MAC still not found after scanning. Please try again."
-            exit 1
+    # Add paired devices
+    while IFS= read -r line; do
+        local mac=$(echo "$line" | awk '{print $1}')
+        local name=$(echo "$line" | cut -d ' ' -f 2-)
+        local connected=$(bluetoothctl info "$mac" 2>/dev/null | grep "Connected:" | awk '{print $2}')
+
+        local formatted_name="$name"
+        if [[ "$connected" == "yes" ]]; then
+            formatted_name="$BLUETOOTH_CONNECTED_ICON $name"
         fi
+        
+        device_list+="$formatted_name\n"
+        macs+=("$mac")
+        names+=("$name")
+    done <<< "$devices_raw"
+
+    # Add available devices (not paired)
+    while IFS= read -r line; do
+        local mac=$(echo "$line" | awk '{print $1}')
+        local name=$(echo "$line" | cut -d ' ' -f 2-)
+        
+        # Only add if not already in paired list
+        local found=false
+        for existing_mac in "${macs[@]}"; do
+            if [[ "$existing_mac" == "$mac" ]]; then
+                found=true
+                break
+            fi
+        done
+        
+        if ! $found; then
+            device_list+="$name\n"
+            macs+=("$mac")
+            names+=("$name")
+        fi
+    done <<< "$available_devices_raw"
+
+    # Stop scan after populating list
+    kill $scan_pid 2>/dev/null
+    bluetoothctl scan off > /dev/null
+
+    local chosen_device=$(echo -e "$device_list" | rofi -dmenu -i -p "Bluetooth Devices:")
+
+    if [ -z "$chosen_device" ]; then
+        return
     fi
-    connect_device "$DEVICE_MAC"
-elif [[ "$ACTION" == "Disconnect" ]]; then
-    disconnect_device "$DEVICE_MAC"
-else
-    send_notification "Unknown action selected: $ACTION"
-    exit 1
-fi
+
+    # Extract original name and find MAC
+    local chosen_name=$(echo "$chosen_device" | sed "s/$BLUETOOTH_CONNECTED_ICON //")
+    local chosen_mac=""
+    local chosen_index=-1
+    for i in "${!names[@]}"; do
+        if [[ "${names[$i]}" == "$chosen_name" ]]; then
+            chosen_mac="${macs[$i]}"
+            chosen_index=$i
+            break
+        fi
+    done
+
+    if [ -z "$chosen_mac" ]; then
+        notify-send "Error" "Could not find MAC address for $chosen_name."
+        return
+    fi
+
+    # Determine action based on device status
+    local device_info=$(bluetoothctl info "$chosen_mac" 2>/dev/null)
+    local paired=$(echo "$device_info" | grep "Paired:" | awk '{print $2}')
+    local connected=$(echo "$device_info" | grep "Connected:" | awk '{print $2}')
+    local trusted=$(echo "$device_info" | grep "Trusted:" | awk '{print $2}')
+
+    local action_options=""
+    if [[ "$connected" == "yes" ]]; then
+        action_options+=" Disconnect\n"
+    else
+        action_options+="󰸋 Connect\n"
+    fi
+
+    if [[ "$paired" == "yes" ]]; then
+        action_options+="󰦪 Unpair\n"
+        if [[ "$trusted" == "no" ]]; then
+            action_options+="󰠊 Trust\n"
+        fi
+    else
+        action_options+="󰹑 Pair\n"
+    fi
+
+    local chosen_action=$(echo -e "$action_options" | rofi -dmenu -p "Action for $chosen_name:")
+
+    case $chosen_action in
+        "󰸋 Connect")
+            bluetoothctl connect "$chosen_mac" && notify-send "Connected" "Successfully connected to $chosen_name." || notify-send "Connection Failed" "Could not connect to $chosen_name."
+            ;;
+        " Disconnect")
+            bluetoothctl disconnect "$chosen_mac" && notify-send "Disconnected" "Successfully disconnected from $chosen_name." || notify-send "Disconnection Failed" "Could not disconnect from $chosen_name."
+            ;;
+        "󰹑 Pair")
+            notify-send "Pairing Initiated" "Attempting to pair with $chosen_name. Check for any prompts."
+            bluetoothctl pair "$chosen_mac" && notify-send "Paired" "Successfully paired with $chosen_name." || notify-send "Pairing Failed" "Could not pair with $chosen_name."
+            ;;
+        "󰦪 Unpair")
+            bluetoothctl remove "$chosen_mac" && notify-send "Unpaired" "Successfully unpaired from $chosen_name." || notify-send "Unpair Failed" "Could not unpair from $chosen_name."
+            ;;
+        "󰠊 Trust")
+            bluetoothctl trust "$chosen_mac" && notify-send "Trusted" "$chosen_name is now trusted." || notify-send "Trust Failed" "Could not trust $chosen_name."
+            ;;
+    esac
+}
+
+# Main menu for Bluetooth
+bluetooth_main_menu() {
+    ##==> Get necessary arguments
+    ###############################################
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --status)
+                status_mode=true
+                shift
+                ;;
+            --enabled-color)
+                ENABLED_COLOR="$2"
+                shift 2
+                ;;
+            --disabled-color)
+                DISABLED_COLOR="$2"
+                shift 2
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+            
+    if [[ $status_mode == true ]]; then
+        get_bluetooth_status
+        exit 1
+    fi
+
+    ##==> Check if Bluetooth service is running
+    ###############################################
+    if ! systemctl is-active --quiet bluetooth.service; then
+        echo -n "Root Password: "
+        read -s password
+        echo "$password" | sudo -S systemctl start bluetooth.service
+        sleep 1 # Give it a moment to start
+    fi
+
+    ##==> Get action buttons and their functionality
+    #######################################################
+    local bluetooth_status=$(bluetoothctl show | grep "Powered:" | awk '{print $2}')
+    local bluetooth_toggle
+    if [[ "$bluetooth_status" == "yes" ]]; then
+        bluetooth_toggle="󰂓 Disable Bluetooth"
+        bluetooth_toggle_command="off"
+        manage_bluetooth_btn="\n󰂰 Manage Devices"
+    else
+        bluetooth_toggle="󰂴 Enable Bluetooth"
+        bluetooth_toggle_command="on"
+        manage_bluetooth_btn=""
+    fi
+
+    ##==> Display Rofi menu
+    #######################################################
+    local chosen_option=$(echo -e "$bluetooth_toggle$manage_bluetooth_btn" | rofi -dmenu -p "󰂯 Bluetooth Management: ")
+    case $chosen_option in
+        "$bluetooth_toggle")
+            bluetoothctl power $bluetooth_toggle_command
+            ;;
+        "󰂰 Manage Devices")
+            manage_bluetooth
+            ;;
+    esac
+}
+
+bluetooth_main_menu "$@"
