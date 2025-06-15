@@ -41,6 +41,11 @@ def --env y [...args] {
 # Exit
 alias e = exit
 
+#Move 
+alias . = cd ..
+alias .. = cd ../.. 
+alias ... = cd ../../..
+
 # Listing files (using lsd or ls)
 alias l = lsd
 alias ll = lsd -l
@@ -54,7 +59,7 @@ alias cd = z
 alias cat = bat
 
 # Clear screen
-alias cls = clear
+alias c = clear
 
 # Print working directory
 alias p = pwd
