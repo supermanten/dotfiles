@@ -31,3 +31,5 @@ path add ($env.HOME | path join ".sdk" "node" "bin")
 
 path add ($env.HOME | path join ".flutter" "flutter" "bin")
 
+path add ($env.HOME | path join ".sdk" "c#")
+
