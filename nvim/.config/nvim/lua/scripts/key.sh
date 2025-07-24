@@ -113,3 +113,14 @@ Space+fu                        : Flutter pub get (Normal Mode)
 ❓ WhichKey
 Space+wK                        : whichkey all keymaps (Normal Mode)
 Space+wk                        : whichkey query lookup (Normal Mode)
+
+⌨️ Typr 
+Space+T                        : Run Typr (Normal Mode)
+Space+ts                       : Toggle Typr State (Normal Mode)
+
+🎨 Colors
+Space+H                        : Run Huefy (Normal Mode)
+Space+hs                       : Toggle Shades (Normal Mode)
+
+🤖 Show Keys
+Space+sk                       : Toggle Showkeys (Normal Mode)

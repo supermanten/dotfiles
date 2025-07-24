@@ -108,6 +108,17 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>rw", "<C-W>c", { desc = "Delete Window", remap = true })
 
+-- 1. Typr (and TyprState)
+map("n", "<leader>T", "<cmd>Typr<cr>", { desc = "Run Typr" })
+map("n", "<leader>ts", "<cmd>TyprState<cr>", { desc = "Toggle Typr State" })
+
+-- 2. Huefy (and Shades)
+map("n", "<leader>H", "<cmd>Huefy<cr>", { desc = "Run Huefy" })
+map("n", "<leader>hs", "<cmd>Shades<cr>", { desc = "Toggle Shades" })
+
+-- 3. ShowkeysToggle
+map("n", "<leader>sk", "<cmd>ShowkeysToggle<cr>", { desc = "Toggle Showkeys" })
+
 -- whichkey
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 map("n", "<leader>wk", function()
