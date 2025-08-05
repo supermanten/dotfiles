@@ -33,3 +33,10 @@ path add ($env.HOME | path join ".flutter" "flutter" "bin")
 
 path add ($env.HOME | path join ".sdk" "c#")
 
+# ************************ Tools **************************** 
+# Vscode
+path add ($env.HOME | path join "Tools" "VSCode-linux-x64" "bin")
+
+path add ($env.HOME | path join "Tools" "nvim-linux-x86_64" "bin")
+
+path add ($env.HOME | path join "Tools" "firefox")
