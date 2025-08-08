@@ -40,3 +40,13 @@ path add ($env.HOME | path join "Tools" "VSCode-linux-x64" "bin")
 path add ($env.HOME | path join "Tools" "nvim-linux-x86_64" "bin")
 
 path add ($env.HOME | path join "Tools" "firefox")
+
+path add ($env.HOME | path join "Tools" "uv-x86_64")
+
+path add ($env.HOME | path join "Tools" "paru" "bin")
+
+path add ($env.HOME | path join "Tools" "git" "bin")
+
+path add ($env.HOME | path join "Tools" "btop" "bin")
+
+path add ($env.HOME | path join "Tools" "yazi")
