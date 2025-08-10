@@ -71,4 +71,7 @@ path add ($env.HOME | path join "Tools" "onefetch" "bin")
 
 path add ($env.HOME | path join "Tools" "scc" "bin")
 
+path add ($env.HOME | path join "Tools" "mufetch" "bin")
+
+path add ($env.HOME | path join "Tools" "yatto" "bin")
 
