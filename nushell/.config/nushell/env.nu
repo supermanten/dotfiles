@@ -65,6 +65,4 @@ path add ($env.HOME | path join "Tools" "starship" "bin")
 
 path add ($env.HOME | path join "Tools" "nerdfetch" "bin")
 
-
-
-
+path add ($env.HOME | path join "Tools" "warp" "opt" "warpdotdev" "warp-terminal")
