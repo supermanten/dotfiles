@@ -51,4 +51,7 @@ path add ($env.HOME | path join "Tools" "btop" "bin")
 
 path add ($env.HOME | path join "Tools" "yazi")
 
+path add ($env.HOME | path join "Tools" "rsync" "bin")
+
+
 path add ($env.HOME | path join "Tools" "mpv" "bin")
