@@ -53,5 +53,15 @@ path add ($env.HOME | path join "Tools" "yazi")
 
 path add ($env.HOME | path join "Tools" "rsync" "bin")
 
+path add ($env.HOME | path join "Tools" "lsd" "bin")
 
-path add ($env.HOME | path join "Tools" "mpv" "bin")
+path add ($env.HOME | path join "Tools" "bat" "bin")
+
+path add ($env.HOME | path join "Tools" "cyme" "bin")
+
+path add ($env.HOME | path join "Tools" "tmux" "bin")
+
+path add ($env.HOME | path join "Tools" "starship" "bin")
+
+
+
