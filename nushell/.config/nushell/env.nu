@@ -63,5 +63,8 @@ path add ($env.HOME | path join "Tools" "tmux" "bin")
 
 path add ($env.HOME | path join "Tools" "starship" "bin")
 
+path add ($env.HOME | path join "Tools" "nerdfetch" "bin")
+
+
 
 
