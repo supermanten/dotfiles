@@ -75,3 +75,8 @@ path add ($env.HOME | path join "Tools" "mufetch" "bin")
 
 path add ($env.HOME | path join "Tools" "yatto" "bin")
 
+
+# -------------------Env-----------------------------------
+
+$env.GEMINI_API_KEY = "AIzaSyBdPoyd7m4my9oDaTSnRsTqYr8HccTi4Ys"
+
