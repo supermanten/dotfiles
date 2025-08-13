@@ -75,6 +75,9 @@ path add ($env.HOME | path join "Tools" "mufetch" "bin")
 
 path add ($env.HOME | path join "Tools" "yatto" "bin")
 
+path add ($env.HOME | path join "Tools" "superfile" "bin")
+
+path add ($env.HOME | path join "Tools" "zellij" "bin")
 
 # -------------------Env-----------------------------------
 
