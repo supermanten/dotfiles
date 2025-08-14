@@ -32,6 +32,6 @@ export PATH="$HOME/Tools/mufetch/bin:$PATH"
 export PATH="$HOME/Tools/yatto/bin:$PATH"
 export PATH="$HOME/Tools/superfile/bin:$PATH"
 export PATH="$HOME/Tools/zellij/bin:$PATH"
-
+export PATH="$HOME/Tools/crush:$PATH"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc

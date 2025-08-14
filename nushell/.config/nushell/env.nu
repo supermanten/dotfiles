@@ -79,6 +79,8 @@ path add ($env.HOME | path join "Tools" "superfile" "bin")
 
 path add ($env.HOME | path join "Tools" "zellij" "bin")
 
+path add ($env.HOME | path join "Tools" "crush")
+
 # -------------------Env-----------------------------------
 
 $env.GEMINI_API_KEY = "AIzaSyBdPoyd7m4my9oDaTSnRsTqYr8HccTi4Ys"
