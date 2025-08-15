@@ -4,10 +4,10 @@
 theme = 'tokyonight'
 # 
 # The editor files will be opened with. (Leave blank to use the EDITOR environment variable).
-editor = "nvim"
+editor = ""
 # 
 # The editor directories will be opened with. (Leave blank to use the default editors).
-dir_editor = "yazi"
+dir_editor = ""
 #
 # Auto check for update
 auto_check_update = true

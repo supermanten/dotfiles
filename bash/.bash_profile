@@ -34,4 +34,6 @@ export PATH="$HOME/Tools/superfile/bin:$PATH"
 export PATH="$HOME/Tools/zellij/bin:$PATH"
 export PATH="$HOME/Tools/crush:$PATH"
 
+export EDITOR=nvim
+
 [[ -f ~/.bashrc ]] && . ~/.bashrc
