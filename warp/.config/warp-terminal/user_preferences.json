@@ -9,7 +9,7 @@
     "WelcomeTipsFeaturesUsed": "[{\"Hint\":\"BlockSelect\"},{\"Action\":\"ThemePicker\"},{\"Hint\":\"BlockAction\"},{\"Action\":\"CommandPalette\"},{\"Hint\":\"CreateBlock\"}]",
     "NewSessionShellOverride": "{\"Executable\":\"/usr/bin/bash\"}",
     "WorkspaceDecorationVisibility": "\"OnHover\"",
-    "EnteredAgentModeNumTimes": "66",
+    "EnteredAgentModeNumTimes": "67",
     "HasAutoOpenedWelcomeFolder": "true",
     "ShowIndicatorsButton": "true",
     "IsSettingsSyncEnabled": "true",
