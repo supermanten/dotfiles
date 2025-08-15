@@ -77,6 +77,7 @@ alias gs = git status
 alias gcl = git clone
 alias gr = git restore
 alias gi = git init
+alias gd = git diff
 
 # Package managers (Paru/AUR helper)
 alias pacman = paru
