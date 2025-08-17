@@ -1,5 +1,4 @@
 return {
-
 	{
 		"catppuccin/nvim",
 		priority = 1000,
@@ -48,6 +47,17 @@ return {
 					scope_color = "lavender", -- catppuccin color (eg. `lavender`) Default: text
 					colored_indent_levels = true,
 				},
+			},
+		},
+		specs = {
+			{
+				"akinsho/bufferline.nvim",
+				optional = true,
+				opts = function(_, opts)
+					if (vim.g.colors_name or ""):find("catppuccin") then
+						opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
+					end
+				end,
 			},
 		},
 	},

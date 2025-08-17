@@ -61,6 +61,9 @@ alias cat = bat
 # Clear screen
 alias c = clear
 
+#tree
+alias tree = eza -T
+
 # Print working directory
 alias p = pwd
 
