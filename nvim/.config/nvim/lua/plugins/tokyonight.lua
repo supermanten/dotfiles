@@ -14,9 +14,9 @@ return {
 		name = "catppuccin",
 		opts = {
 			transparent_background = true,
-			flavour = "auto", -- latte, frappe, macchiato, mocha
+			flavour = "mocha", -- latte, frappe, macchiato, mocha
 			background = { -- :h background
-				dark = "macchiato",
+				dark = "mocha",
 			},
 			float = {
 				transparent = true, -- enable transparent floating windows
@@ -27,6 +27,7 @@ return {
 				shade = "dark",
 				percentage = 0.15, -- percentage of the shade to apply to the inactive window
 			},
+			auto_integrations = true,
 			integrations = {
 				alpha = true,
 				cmp = true,
@@ -49,11 +50,11 @@ return {
 				blink_cmp = {
 					style = "bordered",
 				},
-			},
-			indent_blankline = {
-				enabled = true,
-				scope_color = "lavender", -- catppuccin color (eg. `lavender`) Default: text
-				colored_indent_levels = true,
+				indent_blankline = {
+					enabled = true,
+					scope_color = "lavender", -- catppuccin color (eg. `lavender`) Default: text
+					colored_indent_levels = true,
+				},
 			},
 		},
 	},
