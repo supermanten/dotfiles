@@ -87,6 +87,11 @@ path add ($env.HOME | path join "Tools" "trip" "bin")
 
 path add ($env.HOME | path join "Tools" "lazygit" "bin")
 
+path add ($env.HOME | path join "Tools" "jj" "bin")
+
+path add ($env.HOME | path join "Tools" "dysk" "bin")
+
+
 
 # -------------------Env-----------------------------------
 
