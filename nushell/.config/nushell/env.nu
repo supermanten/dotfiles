@@ -25,6 +25,12 @@ path add ($env.HOME | path join ".local" "bin")
 
 path add ($env.HOME | path join ".sdk" "jdk-24.0.1" "bin")
 
+path add ($env.HOME | path join ".sdk" "apache-maven" "bin")
+
+path add ($env.HOME | path join ".sdk" "gradle" "bin")
+
+path add ($env.HOME | path join ".sdk" "maven-mvnd")
+
 path add ($env.HOME | path join ".sdk" "go" "bin")
 
 path add ($env.HOME | path join ".sdk" "node" "bin")
@@ -32,6 +38,8 @@ path add ($env.HOME | path join ".sdk" "node" "bin")
 path add ($env.HOME | path join ".flutter" "flutter" "bin")
 
 path add ($env.HOME | path join ".sdk" "c#")
+
+path add ($env.HOME | path join ".sdk" "zig")
 
 # ************************ Tools **************************** 
 # Vscode
@@ -90,8 +98,6 @@ path add ($env.HOME | path join "Tools" "lazygit" "bin")
 path add ($env.HOME | path join "Tools" "jj" "bin")
 
 path add ($env.HOME | path join "Tools" "dysk" "bin")
-
-
 
 # -------------------Env-----------------------------------
 
