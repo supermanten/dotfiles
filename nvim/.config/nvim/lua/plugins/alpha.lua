@@ -20,10 +20,11 @@ return {
 
 		-- Set menu
 		dashboard.section.buttons.val = {
-			dashboard.button("n", "  > New File", "<cmd>ene<CR>"),
+			dashboard.button("n", "  > New File", "<cmd>enew<CR>"),
 			dashboard.button("SPC e", "  > Toggle file explorer", "<cmd>Neotree filesystem reveal left<CR>"),
 			dashboard.button("SPC fp", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
 			dashboard.button("SPC fg", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
+			dashboard.button("u", "󰚰  Update Plugins", "<cmd>Lazy sync<CR>"),
 			dashboard.button("l", "󰒲  >" .. " Lazy", "<cmd> Lazy <cr>"),
 			dashboard.button("m", "󰠅  >" .. " Mason", "<cmd> Mason <cr>"),
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),

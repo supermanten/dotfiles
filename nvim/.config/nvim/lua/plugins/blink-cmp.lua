@@ -7,46 +7,40 @@ return {
 			dependencies = {
 				"nvim-lua/plenary.nvim",
 			},
-			opts = {},
 		},
 	},
 	lazy = false, -- lazy loading handled internally
 	version = "v0.*",
 	---@module 'blink.cmp'
 	opts = {
-		keymap = { preset = "default" },
+		keymap = {},
 		appearance = {
 			kind_icons = {
-				Text = "󰉿",
-				Method = "󰊕",
+				Text = "",
+				Method = "󰆧",
 				Function = "󰊕",
-				Constructor = "󰒓",
-
+				Constructor = "",
 				Field = "󰜢",
-				Variable = "󰆦",
-				Property = "",
-
-				Class = "󱡠",
-				Interface = "󱡠",
-				Struct = "󱡠",
-				Module = "󰅩",
-
-				Unit = "󰪚",
-				Value = "󰦨",
-				Enum = "󰦨",
-				EnumMember = "󰦨",
-
-				Keyword = "󰻾",
+				Variable = "󰀫",
+				Property = "",
+				Class = "󰌗",
+				Interface = "",
+				Struct = "󰌗",
+				Module = "",
+				Unit = "󰑭",
+				Value = "󰎠",
+				Enum = "",
+				EnumMember = "",
+				Keyword = "󰌋",
 				Constant = "󰏿",
-
-				Snippet = "󱄽",
+				Snippet = "",
 				Color = "󰏘",
-				File = "󰈔",
-				Reference = "󰬲",
+				File = "󰈙",
+				Reference = "󰈇",
 				Folder = "󰉋",
-				Event = "󱐋",
-				Operator = "󰪚",
-				TypeParameter = "󰬛",
+				Event = "",
+				Operator = "󰆕",
+				TypeParameter = "󰊄",
 			},
 		},
 		sources = {
@@ -72,7 +66,7 @@ return {
 			},
 			documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = "rounded" } },
 		},
-		signature = { enabled = false, window = { border = "rounded" } },
+		signature = { enabled = true, window = { border = "rounded" } },
 		cmdline = {
 			keymap = {
 				["<Tab>"] = { "show", "accept" },
