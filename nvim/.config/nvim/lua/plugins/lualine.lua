@@ -157,6 +157,7 @@ return {
 		lualine.setup({
 			options = {
 				theme = require("themes/lualine_theme").theme(),
+				-- theme = "catppuccin",
 				icons_enabled = true,
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
