@@ -3,10 +3,18 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
 	opts = {
 		focus = true,
-		modes = {
-			lsp = {
-				win = { position = "right" },
-			},
+		auto_close = true,
+		position = "bottom",
+		padding = 2,
+		win = {
+			border = "rounded",
+		},
+		signs = {
+			error = "",
+			warning = "",
+			hint = "",
+			information = "",
+			other = "",
 		},
 	},
 	cmd = { "Trouble" },
