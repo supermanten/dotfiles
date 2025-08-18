@@ -1,7 +1,8 @@
 return {
 	{
 		"williamboman/mason.nvim",
-		lazy = false,
+		lazy = true,
+		cmd = "Mason",
 		config = function()
 			require("mason").setup({
 				ui = {
@@ -12,7 +13,9 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
+		lazy = true,
+		cmd = { "LspInstall", "LspUninstall" },
+		dependencies = { "williamboman/mason.nvim" },
 		opts = {
 			auto_install = true,
 			-- ensure_installed = { "lua_ls", "rust_analyzer" }
@@ -20,7 +23,9 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		lazy = false,
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = { "williamboman/mason-lspconfig.nvim" },
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
