@@ -4,7 +4,6 @@ local g = vim.g
 
 ---------------------------------neovide-------------------------------------------------
 if g.neovide then
-	g.neovide_refresh_rate = 65
 	g.neovide_opacity = 0.8
 	g.neovide_cursor_animation_length = 0.13
 	g.neovide_cursor_trail_length = 0.00
