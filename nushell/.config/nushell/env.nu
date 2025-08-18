@@ -40,6 +40,8 @@ path add ($env.HOME | path join ".sdk" "c#")
 
 path add ($env.HOME | path join ".sdk" "zig")
 
+path add ($env.HOME | path join ".sdk" "platform-tools")
+
 # ************************ Tools **************************** 
 # Vscode
 path add ($env.HOME | path join "Tools" "VSCode-linux-x64" "bin")
