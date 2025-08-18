@@ -59,5 +59,12 @@ return {
 				hl_group = "NoiceStatusLine",
 			},
 		},
+		views = {
+			cmdline_popup = { border = { style = "rounded" } },
+			popupmenu = { border = { style = "rounded" } },
+			notify = { border = { style = "rounded" } },
+			lsp_hover = { border = { style = "rounded" } },
+			signature_help = { border = { style = "rounded" } },
+		},
 	},
 }

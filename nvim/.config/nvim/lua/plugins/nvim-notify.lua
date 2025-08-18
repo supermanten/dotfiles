@@ -1,5 +1,6 @@
 return {
 	"rcarriga/nvim-notify",
+	event = "VeryLazy",
 	keys = {
 		{
 			"<leader>un",
@@ -12,5 +13,13 @@ return {
 	opts = {
 		stages = "static",
 		timeout = 3000,
+		icons = {
+			ERROR = "",
+			WARN = "",
+			INFO = "",
+			DEBUG = "",
+			TRACE = "✎",
+		},
+		border = "rounded",
 	},
 }
