@@ -146,3 +146,32 @@ vim.api.nvim_create_autocmd({ "UiEnter", "ColorScheme" }, {
 		vim.cmd("hi StatusLine guibg=NONE ctermbg=NONE")
 	end,
 })
+
+-- Dim inactive windows
+vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
+	pattern = "*",
+	callback = function()
+		vim.wo.winhighlight = "Normal:Normal,NormalNC:Normal"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
+	pattern = "*",
+	callback = function()
+		vim.wo.winhighlight = "Normal:ColorColumn,NormalNC:ColorColumn"
+	end,
+})
+
+-- Show relative line numbers in normal mode, absolute in insert mode
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+	pattern = "*",
+	command = "setlocal norelativenumber",
+})
+
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+	pattern = "*",
+	command = "setlocal relativenumber",
+})

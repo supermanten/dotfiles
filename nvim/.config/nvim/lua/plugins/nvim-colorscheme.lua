@@ -2,7 +2,7 @@ return {
 	{
 		"catppuccin/nvim",
 		priority = 1000,
-		lazy = true,
+		lazy = false,
 		name = "catppuccin",
 		opts = {
 			transparent_background = true,
@@ -33,7 +33,6 @@ return {
 				types = { "bold" },
 				operators = { "bold" },
 			},
-			auto_integrations = true,
 			integrations = {
 				alpha = true,
 				cmp = true,
