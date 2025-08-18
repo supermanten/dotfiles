@@ -17,6 +17,20 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 	ui = {
 		size = { width = 0.8, height = 0.8 },
 		wrap = true, -- wrap the lines in the ui
