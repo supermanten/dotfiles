@@ -25,6 +25,8 @@ return {
 	},
 	opts = {
 		open_for_directories = false,
+		hijack_netrw = true,
+		floating_window_border = "rounded",
 		keymaps = {
 			show_help = "<f1>",
 		},
