@@ -27,7 +27,7 @@ return {
 			},
 			lsp = {
 				color = {
-					enabled = false,
+					enabled = true,
 					background = false,
 					foreground = false,
 					virtual_text = true,
