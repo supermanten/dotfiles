@@ -19,6 +19,20 @@ return {
 				shade = "dark",
 				percentage = 0.15, -- percentage of the shade to apply to the inactive window
 			},
+			styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+				comments = { "italic" }, -- Change the style of comments
+				conditionals = { "italic" },
+				loops = { "bold" },
+				functions = { "bold" },
+				keywords = { "bold" },
+				strings = { "italic" },
+				variables = { "italic" },
+				numbers = { "italic" },
+				booleans = { "italic" },
+				properties = { "bold" },
+				types = { "bold" },
+				operators = { "bold" },
+			},
 			auto_integrations = true,
 			integrations = {
 				alpha = true,

@@ -69,7 +69,7 @@ alias n-hint='~/.config/nvim/lua/scripts/hint.sh'
 # Zoxide initialization MUST be last
 export _ZO_DOCTOR=0
 eval "$(zoxide init bash)"
-alias cd='z'
+#alias cd='z'
 
 # Starship initialization
 eval "$(starship init bash)"

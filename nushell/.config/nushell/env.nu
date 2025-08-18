@@ -18,7 +18,6 @@
 # them for future reference.
 use std "path add"
 
-zoxide init nushell | save -f ~/.zoxide.nu
 
 # Add ~/.local/bin to the beginning of the PATH
 path add ($env.HOME | path join ".local" "bin")
@@ -100,6 +99,14 @@ path add ($env.HOME | path join "Tools" "jj" "bin")
 path add ($env.HOME | path join "Tools" "dysk" "bin")
 
 path add ($env.HOME | path join "Tools" "eza" "bin")
+
+path add ($env.HOME | path join "Tools" "zoxide" "bin")
+
+path add ($env.HOME | path join "Tools" "ripgrep" "bin")
+
+#--------------------init tools-----------------------
+zoxide init nushell | save -f ~/.zoxide.nu
+
 # -------------------Env-----------------------------------
 
 $env.GEMINI_API_KEY = "AIzaSyBdPoyd7m4my9oDaTSnRsTqYr8HccTi4Ys"
