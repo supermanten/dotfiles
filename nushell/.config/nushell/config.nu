@@ -1,88 +1,135 @@
 # config.nu
-#
-# Installed by:
-# version = "0.102.0"
-#
-# This file is used to override default Nushell settings, define
-# (or import) custom commands, or run any other startup tasks.
-# See https://www.nushell.sh/book/configuration.html
-#
-# This file is loaded after env.nu and before login.nu
-#
-# You can open this file in your default editor using:
-# config nu
-#
-# See `help config nu` for more options
-#
-# You can remove these comments if you want or leave
-# them for future reference.
+# Nushell Configuration File
+# Version: 0.102.0+
+
+# Create vendor directory if it doesn't exist
 mkdir ($nu.data-dir | path join "vendor/autoload")
+
+# Starship prompt
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
-
-# zoxide
-
+# Zoxide integration
 source ~/.zoxide.nu
 
-# yazi 
+# --- Custom Commands ---
+
+# Enhanced yazi command with better error handling
 def --env y [...args] {
-	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-	yazi ...$args --cwd-file $tmp
-	let cwd = (open $tmp)
-	if $cwd != "" and $cwd != $env.PWD {
-		cd $cwd
-	}
-	rm -fp $tmp
+    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+    let result = do -i { yazi ...$args --cwd-file $tmp }
+    
+    if ($result.exit_code == 0) {
+        let cwd = (open $tmp)
+        if $cwd != "" and $cwd != $env.PWD {
+            cd $cwd
+        }
+    } else {
+        print $"Error in yazi command: ($result.stderr)"
+    }
+    
+    rm -fp $tmp
 }
 
+# Quick directory navigation
+def q [dir: string] {
+    let target = match $dir {
+        "d" => "~/Downloads",
+        "c" => "~/.config",
+        "p" => "~/Projects",
+        "doc" => "~/Documents",
+        _ => $dir
+    }
+    cd $target
+}
 
-#alias name = value
+# Enhanced git status with formatting
+def gss [] {
+    git status -s | lines | each {|line|
+        let parts = ($line | split row ' ')
+        let status = $parts.0
+        let file = $parts.1
+        match $status {
+            "M" => { $"[(ansi green)modified(ansi reset)] ($file)" }
+            "A" => { $"[(ansi yellow)added(ansi reset)] ($file)" }
+            "D" => { $"[(ansi red)deleted(ansi reset)] ($file)" }
+            "??" => { $"[(ansi blue)untracked(ansi reset)] ($file)" }
+            _ => $line
+        }
+    }
+}
 
-# Exit
+# Quick directory listing with icons (simplified)
+def lsg [] {
+    ls | each {|file|
+        let extension = ($file.name | path parse | get extension)
+        let icon = match $extension {
+            "nu" => "🐚",
+            "rs" => "🦀", 
+            "py" => "🐍",
+            "js" => "📜",
+            "ts" => "📘",
+            "md" => "📝",
+            "txt" => "📄",
+            "zip" => "📦",
+            "pdf" => "📕",
+            _ => { if $file.type == "dir" { "📁" } else { "📄" } }
+        }
+        $"($icon) ($file.name)"
+    }
+}
+
+# Simple calculator
+def calc [expression: string] {
+    python -c $"print(($expression))" 
+}
+
+# Show disk usage for current directory
+def dus [] {
+    du -h . | sort-by size | reverse
+}
+
+# --- Aliases (Organized by Category) ---
+
+# Navigation
 alias e = exit
-
-#Move 
 alias . = cd ..
 alias .. = cd ../.. 
 alias ... = cd ../../..
+alias p = pwd
+alias cd = z  # zoxide integration
 
-# Listing files (using lsd or ls)
+# File Operations
 alias l = lsd
 alias ll = lsd -l
 alias la = lsd -a
 alias lla = lsd -la
-
-# Change directory with z (jump around)
-alias cd = z
-
-# File contents viewer
+alias lt = lsd --tree
 alias cat = bat
-
-# Clear screen
-alias c = clear
-
-#tree
 alias tree = eza -T
+alias rm-safe = rm -I  # safer remove with confirmation
 
-# Print working directory
-alias p = pwd
-
-# Neovim and Neovide editors
+# Editors
 alias nv = neovide
 alias v = nvim
+alias vi = nvim
+alias vim = nvim
 
-# Git shortcuts
+# Git (Enhanced)
 alias gc = git commit -m
 alias gp = git push
 alias ga = git add .
 alias gpl = git pull
 alias gs = git status
+alias gss = gss  # Use our custom git status
 alias gcl = git clone
 alias gr = git restore
 alias gi = git init
 alias gd = git diff
+alias gco = git checkout
+alias gb = git branch
+alias gl = git log --oneline --graph --all
 
-# Package managers (Paru/AUR helper)
+# Package Management
 alias pacman = paru
 alias pi = paru -S
 alias pss = paru -Ss
@@ -92,65 +139,59 @@ alias pr = paru -Rns
 alias pq = paru -Q
 alias pqi = paru -Qi
 alias pe = paru -Qe
+alias pclean = paru -Sc  # Clean package cache
 
-# System utilities
+# System Utilities
 alias df = df -h
 alias free = free -h
 alias top = btop
+alias htop = btop
+alias du = du -h
 
-# Network utilities
-alias ip = ip a
+# Network
+alias ip = ip -c a  # Colorized output
 alias ping = ping -c 5
+alias wget = wget -c  # Continue interrupted downloads
 
-# Disk utilities
-alias mount = mount | column -t
-alias umount = umount
-
-# Systemctl shortcuts
+# Systemd
 alias ss = systemctl status
 alias sr = systemctl restart
 alias ssr = systemctl start
 alias ssp = systemctl stop
 alias sen = systemctl enable
 alias sdis = systemctl disable
+alias journal = journalctl -xe
 
-# Docker aliases
+# Docker
 alias dps = docker ps
 alias di = docker images
 alias dstart = docker start
 alias dstop = docker stop
 alias drm = docker rm
 alias drmi = docker rmi
+alias dcu = docker-compose up
+alias dcd = docker-compose down
 
-# Misc
+# Misc Utilities
 alias hist = history
 alias cls = clear
+alias c = clear
+alias time = timeit  # Nushell's built-in timing
 
-# fastfetch
+# Application-specific
 alias fs = fastfetch --logo ~/.config/fastfetch/fastfetch/space.png
-
-#kitty-theme
 alias ktheme = ~/.config/hypr/scripts/kitty-theme.sh
-
-#hyprland keybinds
 alias hint = ~/.config/hypr/scripts/key.sh
-
-#nvim keybinds
 alias n-hint = ~/.config/nvim/lua/scripts/hint.sh
 
-#shell 
-source ~/.config/nushell/random-script.nu
+# --- Environment Configuration ---
 
-# themes
+# Custom themes
 let dark_theme = {
-    # color for nushell primitives
     separator: white
-    leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
+    leading_trailing_space_bg: { attr: n }
     header: green_bold
     empty: blue
-    # Closures can be used to choose colors for specific values.
-    # The value (in this case, a bool) is piped into the closure.
-    # eg) {|| if $in { 'light_cyan' } else { 'light_gray' } }
     bool: light_cyan
     int: white
     filesize: cyan
@@ -182,7 +223,6 @@ let dark_theme = {
     shape_filepath: cyan
     shape_flag: blue_bold
     shape_float: purple_bold
-    # shapes are used to change the cli syntax highlighting
     shape_garbage: { fg: white bg: red attr: b}
     shape_glob_interpolation: cyan_bold
     shape_globpattern: cyan_bold
@@ -209,16 +249,41 @@ let dark_theme = {
     shape_raw_string: light_purple
 }
 
+# Main configuration
 $env.config = {
     show_banner: false
     
     ls: {
-        use_ls_colors: true # use the LS_COLORS environment variable to colorize output
-        clickable_links: true # enable or disable clickable links. Your terminal has to support links.
+        use_ls_colors: true
+        clickable_links: true
     }
-    error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
-
-
+    
+    table: {
+        mode: rounded
+        index_mode: always
+    }
+    
+    error_style: "fancy"
     color_config: $dark_theme
-
+    
+    history: {
+        max_size: 10000
+        sync_on_enter: true
+    }
+    
+    completions: {
+        case_sensitive: false
+        quick: true
+        partial: true
+    }
 }
+
+# Environment variables
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim"
+$env.BAT_THEME = "TwoDark"
+$env.MANPAGER = "sh -c 'col -bx | bat -l man -p'"
+
+# --- External Scripts ---
+source ~/.config/nushell/random-script.nu
+
