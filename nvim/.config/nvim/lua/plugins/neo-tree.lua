@@ -26,12 +26,12 @@ return {
 		},
 		event_handlers = {
 			-- Close neo-tree when opening a file.
-			-- {
-			-- 	event = "file_opened",
-			-- 	handler = function()
-			-- 		require("neo-tree").close_all()
-			-- 	end,
-			-- },
+			{
+				event = "file_opened",
+				handler = function()
+					require("neo-tree").close_all()
+				end,
+			},
 		},
 		default_component_configs = {
 			indent = {
