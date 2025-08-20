@@ -106,6 +106,7 @@ path add ($env.HOME | path join "Tools" "zoxide" "bin")
 
 path add ($env.HOME | path join "Tools" "ripgrep" "bin")
 
+path add ($env.HOME | path join "Tools" "gping" "bin")
 #--------------------init tools-----------------------
 zoxide init nushell | save -f ~/.zoxide.nu
 
