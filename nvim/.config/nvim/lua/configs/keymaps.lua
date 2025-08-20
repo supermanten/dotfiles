@@ -1,132 +1,116 @@
 local map = vim.keymap.set
 
---move in insert mode
-map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
-map("i", "<C-e>", "<End>", { desc = "move end of line" })
-map("i", "<C-h>", "<Left>", { desc = "move left" })
-map("i", "<C-l>", "<Right>", { desc = "move right" })
-map("i", "<C-j>", "<Down>", { desc = "move down" })
-map("i", "<C-k>", "<Up>", { desc = "move up" })
+-- Disable space in normal mode
+map("n", "<Space>", "<Nop>", { desc = "Disable Space" })
 
---Disable space in normal mode
-map("n", "<Space>", "<Nop>", { desc = "Disable space" })
+-- Better navigation
+-- Navigate between windows (panes) with Ctrl + h/j/k/l
+map("n", "<C-h>", "<C-w>h", { desc = "Window Left" })
+map("n", "<C-j>", "<C-w>j", { desc = "Window Down" })
+map("n", "<C-k>", "<C-w>k", { desc = "Window Up" })
+map("n", "<C-l>", "<C-w>l", { desc = "Window Right" })
 
--- Move Lines
-map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+-- Move around in insert mode without leaving
+map("i", "<C-h>", "<Left>", { desc = "Move Left in Insert" })
+map("i", "<C-j>", "<Down>", { desc = "Move Down in Insert" })
+map("i", "<C-k>", "<Up>", { desc = "Move Up in Insert" })
+map("i", "<C-l>", "<Right>", { desc = "Move Right in Insert" })
+map("i", "<C-b>", "<ESC>^i", { desc = "Move to Beginning of Line in Insert" })
+map("i", "<C-e>", "<End>", { desc = "Move to End of Line in Insert" })
 
--- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+-- Better Indenting (already done, but a must-have)
+map("v", "<", "<gv", { desc = "Unindent Selection" })
+map("v", ">", ">gv", { desc = "Indent Selection" })
 
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
+-- Make jk a consistent way to exit insert mode
+map("i", "jk", "<ESC>", { desc = "Exit Insert Mode" })
 
---line number
-map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number" })
-map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
+-- Clear search highlights with ESC
+map("n", "<ESC>", "<cmd>noh<CR>", { desc = "Clear Highlights" })
 
--- Lsp keymap
-map("n", "<leader>K", vim.lsp.buf.hover, { desc = "Lsp hover" })
-map("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Lsp definition" })
-map("n", "<leader>gr", vim.lsp.buf.references, { desc = "Lsp references" })
-map("n", "<C-.>", vim.lsp.buf.code_action, { desc = "Code Action" })
-map("n", "<leader>rm", vim.lsp.buf.rename, { desc = "Rename" })
+---------------------------------------------------
+
+-- ## Window Management
+map("n", "<leader>s", "<C-W>s", { desc = "Split Window Below" })
+map("n", "<leader>v", "<C-W>v", { desc = "Split Window Right" })
+map("n", "<leader>q", "<C-W>c", { desc = "Close Window" })
+
+-- Resize window using leader + arrow keys
+map("n", "<leader>+h", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<leader>-h", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<leader>+w", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<leader>-w", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+
+---------------------------------------------------
+
+-- ## File and Buffer Management
+-- Grouped under leader + f (for 'file') and leader + b (for 'buffer')
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
+map("i", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
+map("n", "<leader>qa", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- Neo Tree
-map("n", "<leader>e", ":Neotree filesystem reveal left<CR>", { desc = "File Explorer" })
-map("n", "<leader>rr", ":Neotree filesystem reveal right<CR>", { desc = "File Explorer" })
-map("n", "<leader>bf", ":Neotree buffers reveal float<CR>", { desc = "Buffer Explorer" })
-map("n", "<leader>qe", ":Neotree close<CR>", { desc = "Close File Explorer" })
-
--- telescope
-local builtin = require("telescope.builtin")
-map("n", "<leader>fp", builtin.find_files, { desc = "Find Files" })
-map("n", "<leader>fg", builtin.live_grep, { desc = "Live Grep" })
-map("n", "<leader><leader>", builtin.oldfiles, { desc = "Find Old Files" })
-map("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "Telescope find in current buffer" })
-map("n", "<leader>fb", builtin.buffers, { desc = "Telescope find buffers" })
-map("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle File Explorer" })
+map("n", "<leader>br", ":Neotree buffers reveal float<CR>", { desc = "Buffer Explorer" })
 
 -- BufferLine
-map("n", "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", { desc = "Toggle Pin" })
-map("n", "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", { desc = "Delete Non-Pinned Buffers" })
-map("n", "<leader>br", "<Cmd>BufferLineCloseRight<CR>", { desc = "Delete Buffers to the Right" })
-map("n", "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", { desc = "Delete Buffers to the Left" })
-map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous Buffer" })
+map("n", "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", { desc = "Toggle Pin" })
+map("n", "<leader>bo", "<Cmd>BufferLineGroupClose ungrouped<CR>", { desc = "Delete Non-Pinned Buffers" })
+map("n", "<leader>bc", "<Cmd>BufferLineCloseRight<CR>", { desc = "Delete Buffers to the Right" })
 
--- toggle-term
-map("n", "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "ToggleTerm" })
-map("t", "<esc><esc>", "<cmd>ToggleTerm<cr>", { desc = " Exit ToggleTerm" })
+---------------------------------------------------
 
--- Navigate vim panes better
-map("n", "<c-k>", ":wincmd k<CR>")
-map("n", "<c-j>", ":wincmd j<CR>")
-map("n", "<c-h>", ":wincmd h<CR>")
-map("n", "<c-l>", ":wincmd l<CR>")
+-- ## Telescope
+-- Grouped under leader + f (for 'find')
+local builtin = require("telescope.builtin")
+map("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+map("n", "<leader>fg", builtin.live_grep, { desc = "Live Grep" })
+map("n", "<leader>fb", builtin.buffers, { desc = "Find Buffers" })
+map("n", "<leader>fo", builtin.oldfiles, { desc = "Find Old Files" })
+map("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy Find in Current Buffer" })
+map("n", "<leader>fh", builtin.help_tags, { desc = "Find Help Tags" })
+map("n", "<leader>ft", builtin.grep_string, { desc = "Find string under cursor" })
+map("n", "<leader>fs", builtin.symbols, { desc = "Find Symbols" })
 
---Todo
-map("n", "<leader>I", ":TodoTelescope<CR>", { desc = "TodoTelescope" })
+---------------------------------------------------
 
--- save files
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+-- ## LSP
+-- Grouped under leader + l
+map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "LSP Definition" })
+map("n", "<leader>lr", vim.lsp.buf.references, { desc = "LSP References" })
+map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+map("n", "<leader>ln", vim.lsp.buf.rename, { desc = "LSP Rename" })
+map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP Symbols" })
+map("n", "<leader>lws", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "LSP Workspace Symbols" })
 
--- New File
-map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+-- Todo
+map("n", "<leader>I", ":TodoTelescope<CR>", { desc = "Todo Telescope" })
 
---alpha
-map("n", "<leader>h", ":Alpha<CR>", { desc = "󰠅 Alpha" })
+---------------------------------------------------
 
---quit all
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+-- ## Terminal
+map("n", "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "Toggle Terminal" })
+map("t", "<esc><esc>", "<cmd>ToggleTerm<cr>", { desc = "Exit ToggleTerm" })
 
---make jk key to ESC
-map("i", "jk", "<esc>", { desc = "Normal Mode" })
+---------------------------------------------------
 
--- better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+-- ## Flutter Tools
+-- Grouped under leader + F
+map("n", "<leader>Ff", "<cmd>FlutterRun<CR>", { desc = "Flutter Run" })
+map("n", "<leader>Fq", "<cmd>FlutterQuit<CR>", { desc = "Flutter Quit" })
+map("n", "<leader>Fr", "<cmd>FlutterReload<CR>", { desc = "Flutter Hot Reload" })
+map("n", "<leader>FR", "<cmd>FlutterRestart<CR>", { desc = "Flutter Hot Restart" })
+map("n", "<leader>Fd", "<cmd>FlutterDevices<CR>", { desc = "Flutter Devices" })
 
---flutter tools
-map("n", "<leader>fd", "<cmd> FlutterDevices <CR>", { desc = "Flutter devices" })
-map("n", "<leader>fD", "<cmd> FlutterDetatch <CR>", { desc = "Flutter detatch" })
-map("n", "<leader>ff", "<cmd> FlutterRun <CR>", { desc = "Flutter run" })
-map("n", "<leader>fq", "<cmd> FlutterQuit <CR>", { desc = "Flutter quit" })
-map("n", "<leader>fr", "<cmd> FlutterReload <CR>", { desc = "Flutter reload" })
-map("n", "<leader>fR", "<cmd> FlutterRestart <CR>", { desc = "Flutter restart" })
-map("n", "<leader>fU", "<cmd> FlutterPubUpgrade <CR>", { desc = "Flutter pub upgrade" })
-map("n", "<leader>fu", "<cmd> FlutterPubGet <CR>", { desc = "Flutter pub get" })
+---------------------------------------------------
 
--- windows
-map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
-map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
-map("n", "<leader>rw", "<C-W>c", { desc = "Delete Window", remap = true })
-
--- 1. Typr (and TyprState)
-map("n", "<leader>T", "<cmd>Typr<cr>", { desc = "Run Typr" })
-map("n", "<leader>ts", "<cmd>TyprState<cr>", { desc = "Toggle Typr State" })
-
--- 2. Huefy (and Shades)
-map("n", "<leader>H", "<cmd>Huefy<cr>", { desc = "Run Huefy" })
-map("n", "<leader>hs", "<cmd>Shades<cr>", { desc = "Toggle Shades" })
-
--- 3. ShowkeysToggle
-map("n", "<leader>sk", "<cmd>ShowkeysToggle<cr>", { desc = "Toggle Showkeys" })
-
--- whichkey
-map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
-map("n", "<leader>wk", function()
-	vim.cmd("WhichKey " .. vim.fn.input("WhichKey: "))
-end, { desc = "whichkey query lookup" })
-
-local api = vim.api
-
--- comment
-api.nvim_set_keymap("n", "<C-c>", "gtc", { desc = "Toggle Comment", noremap = false })
-api.nvim_set_keymap("v", "<C-c>", "goc", { desc = "Toggle Comment", noremap = false })
+-- ## Move Lines
+map("n", "<A-j>", ":move .+1<CR>==", { desc = "Move Line Down" })
+map("n", "<A-k>", ":move .-2<CR>==", { desc = "Move Line Up" })
+map("v", "<A-j>", ":move '>+1<CR>gv=gv", { desc = "Move Selection Down" })
+map("v", "<A-k>", ":move '<-2<CR>gv=gv", { desc = "Move Selection Up" })
+map("i", "<A-j>", "<Esc>:move .+1<CR>==gi", { desc = "Move Line Down" })
+map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
