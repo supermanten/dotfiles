@@ -31,8 +31,8 @@ map("n", "<ESC>", "<cmd>noh<CR>", { desc = "Clear Highlights" })
 ---------------------------------------------------
 
 -- ## Window Management
-map("n", "<leader>s", "<C-W>s", { desc = "Split Window Below" })
-map("n", "<leader>v", "<C-W>v", { desc = "Split Window Right" })
+map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below" })
+map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right" })
 map("n", "<leader>q", "<C-W>c", { desc = "Close Window" })
 
 -- Resize window using leader + arrow keys

@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Rofi theme
@@ -21,106 +22,71 @@ exit
 
 # # NVIM_KEYBINDS # #
 ⌨️ General
-Control+b                       : move beginning of line (Insert Mode)
-Control+e                       : move end of line (Insert Mode)
-Control+h                       : move left (Insert Mode)
-Control+l                       : move right (Insert Mode)
-Control+j                       : move down (Insert Mode)
-Control+k                       : move up (Insert Mode)
-Space                           : Disable space (Normal Mode)
-ALT+j                           : Move Down (Normal/Insert/Visual Mode)
-ALT+k                           : Move Up (Normal/Insert/Visual Mode)
-Control+Up                      : Increase Window Height (Normal Mode)
-Control+Down                    : Decrease Window Height (Normal Mode)
-Control+Left                    : Decrease Window Width (Normal Mode)
-Control+Right                   : Increase Window Width (Normal Mode)
-Escape                          : Clear highlights (Normal Mode)
-Control+s                       : Save File (Insert/Visual/Normal/Select Mode)
-Control+W s                     : Split Window Below (Normal Mode)
-Control+W v                     : Split Window Right (Normal Mode)
-Control+W c                     : Delete Window (Normal Mode)
-jk                              : Normal Mode (Insert Mode)
-<                               : Better indenting (Visual Mode)
->                               : Better indenting (Visual Mode)
-Control+c                       : Toggle Comment (Normal Mode)
-Control+c                       : Toggle Comment (Visual Mode)
+Control+h/j/k/l             : Navigate windows (Normal Mode)
+Control+b                   : Move to beginning of line (Insert Mode)
+Control+e                   : Move to end of line (Insert Mode)
+Control+h/j/k/l             : Move around (Insert Mode)
+Space                       : Disable space (Normal Mode)
+ALT+j/k                     : Move line up/down (Normal/Insert/Visual Mode)
+jk                          : Exit Insert Mode (Insert Mode)
+Control+s                   : Save File (Normal/Insert Mode)
+Escape                      : Clear highlights (Normal Mode)
+< />                       : Indent/Unindent Selection (Visual Mode)
 
-🔢 Line Numbers
-Space+n                         : toggle line number (Normal Mode)
-Space+rn                        : toggle relative number (Normal Mode)
+💻 Window Management
+Space+-                     : Split Window Below
+Space+\                     : Split Window Right
+Space+q                     : Close Window
+Space++h/-h                 : Increase/Decrease Window Height
+Space++w/-w                 : Increase/Decrease Window Width
 
-🛠️ LSP Keymaps
-Space+K                         : Lsp hover (Normal Mode)
-Space+gd                        : Lsp definition (Normal Mode)
-Space+gr                        : Lsp references (Normal Mode)
-Control+.                       : Code Action (Normal Mode)
-Space+rm                        : Rename (Normal Mode)
+📁 File & Buffer Management
+Space+fn                    : New File
+Space+qa                    : Quit All
+Shift+h                     : Previous Buffer
+Shift+l                     : Next Buffer
+Space+bp                    : Toggle Pin Buffer
+Space+bo                    : Close Non-Pinned Buffers
+Space+bc                    : Close Buffers to the Right
 
 🌳 Neo Tree
-Space+e                         : File Explorer (Normal Mode)
-Space+rr                        : File Explorer (Normal Mode)
-Space+bf                        : Buffer Explorer (Normal Mode)
-Space+qe                        : Close File Explorer (Normal Mode)
+Space+e                     : Toggle File Explorer
+Space+br                    : Buffer Explorer
 
 🔎 Telescope
-Space+fp                        : Find Files (Normal Mode)
-Space+fg                        : Live Grep (Normal Mode)
-Space+Space                     : Find Old Files (Normal Mode)
-Space+fz                        : Telescope find in current buffer (Normal Mode)
-Space+fb                        : Telescope find buffers (Normal Mode)
-Space+fh                        : Telescope help tags (Normal Mode)
+Space+ff                    : Find Files
+Space+fg                    : Live Grep
+Space+fb                    : Find Buffers
+Space+fo                    : Find Old Files
+Space+fz                    : Fuzzy Find in Current Buffer
+Space+fh                    : Find Help Tags
+Space+ft                    : Find string under cursor
+Space+fs                    : Find Symbols
 
-↔️ BufferLine
-Space+bp                        : Toggle Pin (Normal Mode)
-Space+bP                        : Delete Non-Pinned Buffers (Normal Mode)
-Space+br                        : Delete Buffers to the Right (Normal Mode)
-Space+bl                        : Delete Buffers to the Left (Normal Mode)
-Shift+h                         : Prev Buffer (Normal Mode)
-Shift+l                         : Next Buffer (Normal Mode)
-
-💻 ToggleTerm
-Space+t                         : ToggleTerm (Normal Mode)
-Esc+Esc                         : Exit ToggleTerm(Terminal Mode)   
-
-↕️ Navigate Panes
-Control+k                       : Move up pane
-Control+j                       : Move down pane
-Control+h                       : Move left pane
-Control+l                       : Move right pane
+🛠️ LSP
+Space+ld                    : LSP Definition
+Space+lr                    : LSP References
+Space+la                    : LSP Code Action
+Space+ln                    : LSP Rename
+Space+ls                    : LSP Document Symbols
+Space+lws                   : LSP Workspace Symbols
+K                           : LSP Hover
 
 ✅ Todo
-Space+I                         : TodoTelescope (Normal Mode)
+Space+I                     : Todo Telescope
 
-📁 File Actions
-Space+fn                        : New File (Normal Mode)
-
-🏠 Alpha
-Space+h                         : 󰠅 Alpha (Normal Mode)
-
-❌ Quit
-Space+qq                        : Quit All (Normal Mode)
+💻 Terminal
+Space+t                     : Toggle Terminal
+Esc+Esc                     : Exit ToggleTerm (Terminal Mode)
 
 🚀 Flutter Tools
-Space+fd                        : Flutter devices (Normal Mode)
-Space+fD                        : Flutter detatch (Normal Mode)
-Space+ff                        : Flutter run (Normal Mode)
-Space+fq                        : Flutter quit (Normal Mode)
-Space+fr                        : Flutter reload (Normal Mode)
-Space+fR                        : Flutter restart (Normal Mode)
-Space+fU                        : Flutter pub upgrade (Normal Mode)
-Space+fu                        : Flutter pub get (Normal Mode)
+Space+Ff                    : Flutter Run
+Space+Fq                    : Flutter Quit
+Space+Fr                    : Flutter Hot Reload
+Space+FR                    : Flutter Hot Restart
+Space+Fd                    : Flutter Devices
 
 ❓ WhichKey
-Space+wK                        : whichkey all keymaps (Normal Mode)
-Space+wk                        : whichkey query lookup (Normal Mode)
+Space+?                     : Buffer Local Keymaps
+Space+wk                    : All Global Keymaps
 
-⌨️ Typr 
-Space+T                        : Run Typr (Normal Mode)
-Space+ts                       : Toggle Typr State (Normal Mode)
-
-🎨 Colors
-Space+H                        : Run Huefy (Normal Mode)
-Space+hs                       : Toggle Shades (Normal Mode)
-
-🤖 Show Keys
-Space+sk                       : Toggle Showkeys (Normal Mode)
