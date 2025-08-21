@@ -39,7 +39,7 @@ end, { desc = "Toggle diagnostics virtual text" })
 vim.keymap.set("n", "<leader>dd", function()
 	local enabled = vim.diagnostic.is_enabled()
 	if enabled then
-		vim.diagnostic.disable()
+		vim.diagnostic.enabled(false)
 	else
 		vim.diagnostic.enable()
 	end
