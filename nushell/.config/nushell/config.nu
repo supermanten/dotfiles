@@ -15,19 +15,13 @@ source ~/.zoxide.nu
 
 # Enhanced yazi command with better error handling
 def --env y [...args] {
-    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-    let result = do -i { yazi ...$args --cwd-file $tmp }
-    
-    if ($result.exit_code == 0) {
-        let cwd = (open $tmp)
-        if $cwd != "" and $cwd != $env.PWD {
-            cd $cwd
-        }
-    } else {
-        print $"Error in yazi command: ($result.stderr)"
-    }
-    
-    rm -fp $tmp
+	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+	yazi ...$args --cwd-file $tmp
+	let cwd = (open $tmp)
+	if $cwd != "" and $cwd != $env.PWD {
+		cd $cwd
+	}
+	rm -fp $tmp
 }
 
 # Quick directory navigation
