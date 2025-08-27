@@ -73,3 +73,37 @@ eval "$(zoxide init bash)"
 
 # Starship initialization
 eval "$(starship init bash)"
+
+#-----------------------------------------*******nvim******------------------------
+#!/bin/bash
+
+# Aliases for launching different Neovim configs
+alias nvim-lazy='NVIM_APPNAME=LazyVim nvim'
+alias nvim-kick='NVIM_APPNAME=kickstart nvim'
+alias nvim-chad='NVIM_APPNAME=NvChad nvim'
+alias nvim-astro='NVIM_APPNAME=AstroNvim nvim'
+
+# Function to choose Neovim config via fzf
+nvims() {
+  local items=("rio" "kickstart" "LazyVim" "NvChad" "AstroNvim")
+  local config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=50% --layout=reverse --border --exit-0)
+
+  if [[ -z "$config" ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ "$config" == "default" ]]; then
+    config=""
+  fi
+
+  NVIM_APPNAME="$config" nvim "$@"
+}
+
+# Optional: bind Ctrl+A to launch nvims (requires `bind` workaround in Bash)
+bind_nvims_keybinding() {
+  # This sets Ctrl+A to run nvims in Bash (interactive mode only)
+  bind -x '"\C-a":nvims'
+}
+
+# Uncomment the line below to enable keybinding when sourced
+# bind_nvims_keybinding
+
