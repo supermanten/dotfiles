@@ -33,6 +33,7 @@ export PATH="$HOME/Tools/yatto/bin:$PATH"
 export PATH="$HOME/Tools/superfile/bin:$PATH"
 export PATH="$HOME/Tools/zellij/bin:$PATH"
 export PATH="$HOME/Tools/crush:$PATH"
+export PATH="$HOME/Tools/zoxide/bin:$PATH"
 
 export EDITOR=nvim
 
