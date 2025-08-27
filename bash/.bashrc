@@ -91,7 +91,7 @@ nvims() {
   if [[ -z "$config" ]]; then
     echo "Nothing selected"
     return 0
-  elif [[ "$config" == "default" ]]; then
+  elif [[ "$config" == "rio" ]]; then
     config=""
   fi
 
@@ -105,5 +105,5 @@ bind_nvims_keybinding() {
 }
 
 # Uncomment the line below to enable keybinding when sourced
-# bind_nvims_keybinding
+bind_nvims_keybinding
 
