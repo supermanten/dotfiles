@@ -42,6 +42,8 @@ path add ($env.HOME | path join ".sdk" "zig")
 
 path add ($env.HOME | path join ".sdk" "platform-tools")
 
+path add ($env.HOME | path join ".sdk" "kobweb" "bin")
+
 # ************************ Tools **************************** 
 # Vscode
 path add ($env.HOME | path join "Tools" "VSCode-linux-x64" "bin")
@@ -107,6 +109,13 @@ path add ($env.HOME | path join "Tools" "zoxide" "bin")
 path add ($env.HOME | path join "Tools" "ripgrep" "bin")
 
 path add ($env.HOME | path join "Tools" "gping" "bin")
+
+path add ($env.HOME | path join "Tools" "ffmpeg" "bin")
+
+path add ($env.HOME | path join "Tools" "thunderbird")
+
+path add ($env.HOME | path join "Tools" "opencode" "bin")
+
 #--------------------init tools-----------------------
 zoxide init nushell | save -f ~/.zoxide.nu
 
