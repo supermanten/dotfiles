@@ -33,8 +33,16 @@ export PATH="$HOME/Tools/yatto/bin:$PATH"
 export PATH="$HOME/Tools/superfile/bin:$PATH"
 export PATH="$HOME/Tools/zellij/bin:$PATH"
 export PATH="$HOME/Tools/crush:$PATH"
+export PATH="$HOME/Tools/btm/bin:$PATH"
+export PATH="$HOME/Tools/trip/bin:$PATH"
+export PATH="$HOME/Tools/lazygit/bin:$PATH"
+export PATH="$HOME/Tools/jj/bin:$PATH"
 export PATH="$HOME/Tools/zoxide/bin:$PATH"
-
+export PATH="$HOME/Tools/dysk/bin:$PATH"
+export PATH="$HOME/Tools/eza/bin:$PATH"
+export PATH="$HOME/Tools/ripgrep/bin:$PATH"
+export PATH="$HOME/Tools/opencode/bin:$PATH"
+export PATH="$HOME/Tools/thunderbird:$PATH"
 export EDITOR=nvim
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
