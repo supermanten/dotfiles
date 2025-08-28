@@ -116,6 +116,8 @@ path add ($env.HOME | path join "Tools" "thunderbird")
 
 path add ($env.HOME | path join "Tools" "opencode" "bin")
 
+path add ($env.HOME | path join "Tools" "caligula" "bin")
+
 #--------------------init tools-----------------------
 zoxide init nushell | save -f ~/.zoxide.nu
 
