@@ -55,3 +55,21 @@ map("n", "<leader>wH", "<C-W>H", { desc = "Move Window Left" })
 map("n", "<leader>wJ", "<C-W>J", { desc = "Move Window Down" })
 map("n", "<leader>wK", "<C-W>K", { desc = "Move Window Up" })
 map("n", "<leader>wL", "<C-W>L", { desc = "Move Window Right" })
+
+-- ## File and Buffer Management
+-- Grouped under leader + f (for 'file') and leader + b (for 'buffer')
+map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
+map("i", "<C-s>", "<cmd>w<cr>", { desc = "Save File" })
+map("n", "<leader>qa", "<cmd>qa<cr>", { desc = "Quit All" })
+
+-- Neo Tree
+map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle File Explorer" })
+map("n", "<leader>br", ":Neotree buffers reveal float<CR>", { desc = "Buffer Explorer" })
+
+-- BufferLine
+map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous Buffer" })
+map("n", "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", { desc = "Toggle Pin" })
+map("n", "<leader>bo", "<Cmd>BufferLineGroupClose ungrouped<CR>", { desc = "Delete Non-Pinned Buffers" })
+map("n", "<leader>bc", "<Cmd>BufferLineCloseRight<CR>", { desc = "Delete Buffers to the Right" })
