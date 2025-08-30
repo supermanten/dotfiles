@@ -156,10 +156,11 @@ return {
 		-- configure lualine with modified theme
 		lualine.setup({
 			options = {
-				theme = require("themes/lualine_theme").theme(),
-				-- theme = "catppuccin",
+				-- theme = require("themes/lualine_theme").theme(),
+				theme = "catppuccin",
 				icons_enabled = true,
-				section_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
+				component_separators = { left = "", right = "" },
 				disabled_filetypes = {
 					statusline = {},
 					winbar = {},
@@ -188,6 +189,8 @@ return {
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
 						color = { fg = "#ff9e64" },
+					},
+					{
 						"diff",
 						symbols = {
 							added = icons.git.added,
@@ -195,7 +198,7 @@ return {
 							removed = icons.git.removed,
 						},
 					},
-					-- { "encoding" },
+					{ "encoding" },
 					{ "fileformat" },
 					{ "filetype" },
 				},

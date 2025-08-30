@@ -4,6 +4,16 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	version = "*",
 	opts = {
+		highlights = {
+			buffer_selected = {
+				bold = true,
+				italic = false,
+			},
+			buffer_visible = {
+				bold = true,
+				italic = false,
+			},
+		},
 		options = {
 			indicator = {
 				icon = "☕",
@@ -11,10 +21,10 @@ return {
 			},
 			offsets = {
 				{
-					iletype = "neo-tree",
+					filetype = "neo-tree",
 					text = "Neo-tree",
 					highlight = "Directory",
-					separetor = true,
+					separator = true,
 					padding = 1,
 				},
 			},
@@ -40,9 +50,10 @@ return {
 			max_name_length = 18, -- Set a max buffer name length
 			max_prefix_length = 15, -- Set a max prefix length for truncated buffers
 			tab_size = 20, -- Set minimum tab size for buffers
-			separator_style = "thick", -- Stylish separatorstics = "nvim_lsp",
+			separator_style = "thick", -- Stylish separators (slant or thick)
 			enforce_regular_tabs = true, -- Ensure all tabs are the same width
 			color_icons = true,
+			show_buffer_icons = true,
 			show_buffer_close_icons = true,
 			show_close_icon = true,
 			show_tab_indicators = true,
