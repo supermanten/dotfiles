@@ -15,6 +15,7 @@ return {
 				statusline = {
 					app_version = false,
 					device = true,
+					device_icon = "📱",
 				},
 			},
 			widget_guides = {
@@ -31,7 +32,7 @@ return {
 					background = false,
 					foreground = false,
 					virtual_text = true,
-					virtual_text_str = "■",
+					virtual_text_str = "🎨",
 				},
 				settings = {
 					showTodos = true,
@@ -39,14 +40,14 @@ return {
 					enableSnippets = true,
 				},
 			},
-			-- debugger = {
-			-- 	enabled = true,
-			-- 	run_via_dap = false,
-			-- },
-			-- dev_log = {
-			--   enabled = true,
-			--   open_cmd = "tabedit", -- command to use to open the log buffer
-			-- },
+			debugger = {
+				enabled = true,
+				run_via_dap = false,
+			},
+			dev_log = {
+				enabled = true,
+				open_cmd = "tabedit",
+			},
 		})
 	end,
 }
