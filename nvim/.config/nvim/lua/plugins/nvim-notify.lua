@@ -28,7 +28,7 @@ return {
 		render = "compact",
 		minimum_width = 30,
 		-- Position and animation
-		top_down = false, -- Show from bottom
+		top_down = true, -- Show from bottom
 		-- Custom highlights
 		on_open = function(win)
 			vim.api.nvim_win_set_option(win, "winblend", 10)
