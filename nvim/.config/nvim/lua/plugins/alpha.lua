@@ -35,10 +35,15 @@ return {
 		dashboard.section.buttons.opts.hl = "AlphaButtons"
 		dashboard.section.footer.opts.hl = "AlphaFooter"
 
-		-- Define highlight groups
-		vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#89b4fa", bold = true })
-		vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#f38ba8" })
-		vim.api.nvim_set_hl(0, "AlphaFooter", { fg = "#a6e3a1", italic = true })
+		-- Define highlight groups - consistent with lualine theme
+		local colors = {
+			blue = "#74c0fc",
+			magenta = "#f783ac",
+			green = "#51cf66",
+		}
+		vim.api.nvim_set_hl(0, "AlphaHeader", { fg = colors.blue, bold = true })
+		vim.api.nvim_set_hl(0, "AlphaButtons", { fg = colors.magenta })
+		vim.api.nvim_set_hl(0, "AlphaFooter", { fg = colors.green, italic = true })
 
 		-- Send config to alpha
 		alpha.setup(dashboard.opts)

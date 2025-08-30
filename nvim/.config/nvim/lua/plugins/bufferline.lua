@@ -5,13 +5,29 @@ return {
 	version = "*",
 	opts = {
 		highlights = {
+			-- Consistent with lualine theme colors
 			buffer_selected = {
 				bold = true,
 				italic = false,
+				fg = "#e2e8f0", -- bright white
+				bg = "#2a2a3e", -- gray2 from lualine
 			},
 			buffer_visible = {
 				bold = true,
 				italic = false,
+				fg = "#94a3b8", -- subtext2
+				bg = "#1a1a2e", -- gray1
+			},
+			buffer = {
+				fg = "#64748b", -- subtext3
+				bg = "#0f0f23", -- bg
+			},
+			modified = {
+				fg = "#ffd43b", -- yellow
+			},
+			modified_selected = {
+				fg = "#ffd43b", -- yellow
+				bg = "#2a2a3e", -- gray2
 			},
 		},
 		options = {
