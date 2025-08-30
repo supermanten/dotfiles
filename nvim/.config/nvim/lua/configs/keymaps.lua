@@ -79,9 +79,63 @@ map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
 map("n", "<leader>bD", "<cmd>bdelete!<cr>", { desc = "Force Delete Buffer" })
 map("n", "<leader>bc", "<cmd>%bd|e#<cr>", { desc = "Close Other Buffers" })
 
--- Neo Tree
-map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle File Explorer" })
-map("n", "<leader>br", ":Neotree buffers reveal float<CR>", { desc = "Buffer Explorer" })
+-- Neo Tree - Enhanced File Navigation
+map("n", "<leader>e", function()
+	local ok, _ = pcall(vim.cmd, "Neotree toggle")
+	if not ok then
+		vim.notify("Neo-tree not available", vim.log.levels.WARN)
+	end
+end, { desc = "Toggle File Explorer" })
+
+map("n", "<leader>E", function()
+	local ok, _ = pcall(vim.cmd, "Neotree focus")
+	if not ok then
+		vim.notify("Neo-tree not available", vim.log.levels.WARN)
+	end
+end, { desc = "Focus File Explorer" })
+
+map("n", "<leader>be", function()
+	local ok, _ = pcall(vim.cmd, "Neotree buffers reveal float")
+	if not ok then
+		vim.notify("Neo-tree buffers not available", vim.log.levels.WARN)
+	end
+end, { desc = "Buffer Explorer" })
+
+map("n", "<leader>gs", function()
+	local ok, _ = pcall(vim.cmd, "Neotree git_status reveal float")
+	if not ok then
+		vim.notify("Neo-tree git status not available", vim.log.levels.WARN)
+	end
+end, { desc = "Git Status Explorer" })
+
+map("n", "<leader>fe", function()
+	local ok, _ = pcall(vim.cmd, "Neotree filesystem reveal left")
+	if not ok then
+		vim.notify("Neo-tree filesystem not available", vim.log.levels.WARN)
+	end
+end, { desc = "Filesystem Explorer" })
+
+-- Quick file operations
+map("n", "<leader>nf", function()
+	local ok, _ = pcall(vim.cmd, "Neotree filesystem reveal left")
+	if not ok then
+		vim.notify("Neo-tree filesystem not available", vim.log.levels.WARN)
+	end
+end, { desc = "Reveal Current File" })
+
+map("n", "<leader>nc", function()
+	local ok, _ = pcall(vim.cmd, "Neotree close")
+	if not ok then
+		vim.notify("Neo-tree close not available", vim.log.levels.WARN)
+	end
+end, { desc = "Close Neo-tree" })
+
+map("n", "<leader>nr", function()
+	local ok, _ = pcall(vim.cmd, "Neotree refresh")
+	if not ok then
+		vim.notify("Neo-tree refresh not available", vim.log.levels.WARN)
+	end
+end, { desc = "Refresh Neo-tree" })
 
 -- BufferLine
 map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
@@ -95,44 +149,263 @@ map("n", "<leader>bc", "<Cmd>BufferLineCloseRight<CR>", { desc = "Delete Buffers
 -- ## Telescope
 -- Grouped under leader + f (for 'find')
 local builtin = require("telescope.builtin")
-map("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
-map("n", "<leader>fg", builtin.live_grep, { desc = "Live Grep" })
-map("n", "<leader>fb", builtin.buffers, { desc = "Find Buffers" })
-map("n", "<leader>fo", builtin.oldfiles, { desc = "Find Old Files" })
-map("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy Find in Current Buffer" })
-map("n", "<leader>fh", builtin.help_tags, { desc = "Find Help Tags" })
-map("n", "<leader>ft", builtin.grep_string, { desc = "Find string under cursor" })
-map("n", "<leader>fs", builtin.symbols, { desc = "Find Symbols" })
+map("n", "<leader>ff", function()
+	local ok, _ = pcall(builtin.find_files)
+	if not ok then
+		vim.notify("Find files not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Files" })
+
+map("n", "<leader>fF", function()
+	local ok, telescope = pcall(require, "telescope")
+	if ok and telescope.extensions and telescope.extensions.smart_open then
+		telescope.extensions.smart_open.smart_open()
+	else
+		vim.notify("Smart open not available", vim.log.levels.WARN)
+	end
+end, { desc = "Smart Open Files" })
+
+map("n", "<leader>fg", function()
+	local ok, _ = pcall(builtin.live_grep)
+	if not ok then
+		vim.notify("Live grep not available", vim.log.levels.WARN)
+	end
+end, { desc = "Live Grep" })
+
+map("n", "<leader>fG", function()
+	local ok, _ = pcall(builtin.live_grep, { cwd = vim.fn.expand("%:p:h") })
+	if not ok then
+		vim.notify("Live grep in directory not available", vim.log.levels.WARN)
+	end
+end, { desc = "Live Grep in Directory" })
+
+map("n", "<leader>fb", function()
+	local ok, _ = pcall(builtin.buffers)
+	if not ok then
+		vim.notify("Buffers search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Buffers" })
+
+map("n", "<leader>fo", function()
+	local ok, _ = pcall(builtin.oldfiles)
+	if not ok then
+		vim.notify("Old files search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Old Files" })
+
+map("n", "<leader>fr", function()
+	local ok, _ = pcall(builtin.resume)
+	if not ok then
+		vim.notify("Resume search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Resume Last Search" })
+
+map("n", "<leader>fz", function()
+	local ok, _ = pcall(builtin.current_buffer_fuzzy_find)
+	if not ok then
+		vim.notify("Buffer fuzzy find not available", vim.log.levels.WARN)
+	end
+end, { desc = "Fuzzy Find in Current Buffer" })
+
+map("n", "<leader>fh", function()
+	local ok, _ = pcall(builtin.help_tags)
+	if not ok then
+		vim.notify("Help tags not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Help Tags" })
+
+map("n", "<leader>fm", function()
+	local ok, _ = pcall(builtin.man_pages)
+	if not ok then
+		vim.notify("Man pages not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Man Pages" })
+
+map("n", "<leader>fk", function()
+	local ok, _ = pcall(builtin.keymaps)
+	if not ok then
+		vim.notify("Keymaps search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Keymaps" })
+
+map("n", "<leader>fc", function()
+	local ok, _ = pcall(builtin.commands)
+	if not ok then
+		vim.notify("Commands search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Commands" })
+
+map("n", "<leader>ft", function()
+	local ok, _ = pcall(builtin.grep_string)
+	if not ok then
+		vim.notify("Grep string not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find string under cursor" })
+
+map("n", "<leader>fT", function()
+	local ok, _ = pcall(builtin.grep_string, { search = vim.fn.expand("<cword>") })
+	if not ok then
+		vim.notify("Grep word under cursor not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Word Under Cursor" })
+
+map("n", "<leader>fs", function()
+	local ok, _ = pcall(builtin.symbols)
+	if not ok then
+		vim.notify("Symbols search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Symbols" })
+
+map("n", "<leader>fS", function()
+	local ok, _ = pcall(builtin.lsp_workspace_symbols)
+	if not ok then
+		vim.notify("Workspace symbols not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find Workspace Symbols" })
+
+-- Quick search shortcuts
+map("n", "<leader>/", function()
+	local ok, _ = pcall(builtin.live_grep)
+	if not ok then
+		vim.notify("Project search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search in Project" })
+
+map("n", "<leader>?", function()
+	local ok, _ = pcall(builtin.current_buffer_fuzzy_find)
+	if not ok then
+		vim.notify("Buffer search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search in Current Buffer" })
+
+map("n", "<leader>*", function()
+	local ok, _ = pcall(builtin.grep_string, { search = vim.fn.expand("<cword>") })
+	if not ok then
+		vim.notify("Word search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search Word Under Cursor" })
+
+map("v", "<leader>*", function()
+	local text = vim.get_visual_selection()
+	local ok, _ = pcall(builtin.grep_string, { search = text })
+	if not ok then
+		vim.notify("Visual selection search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search Visual Selection" })
+
+-- Enhanced navigation
+map("n", "<leader>gf", function()
+	local ok, _ = pcall(builtin.git_files)
+	if not ok then
+		vim.notify("Git files search not available (not in git repo)", vim.log.levels.WARN)
+	end
+end, { desc = "Search Git Files" })
+
+map("n", "<leader>gb", function()
+	local ok, _ = pcall(builtin.git_branches)
+	if not ok then
+		vim.notify("Git branches search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search Git Branches" })
+
+map("n", "<leader>gc", function()
+	local ok, _ = pcall(builtin.git_commits)
+	if not ok then
+		vim.notify("Git commits search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search Git Commits" })
+
+map("n", "<leader>gC", function()
+	local ok, _ = pcall(builtin.git_bcommits)
+	if not ok then
+		vim.notify("Git buffer commits search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search Git Commits for Buffer" })
+
+-- Quick access to important files
+map("n", "<leader>en", function() builtin.find_files({ cwd = "~/.config/nvim" }) end, { desc = "Edit Neovim Config" })
+map("n", "<leader>ez", function() builtin.find_files({ cwd = "~" }) end, { desc = "Edit Zsh Config" })
 
 ---------------------------------------------------
 
--- ## LSP
+-- ## LSP Navigation & Symbols
 -- Grouped under leader + l
-map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "LSP Definition" })
-map("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "LSP Declaration" })
-map("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "LSP Type Definition" })
-map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "LSP Implementation" })
-map("n", "<leader>lr", vim.lsp.buf.references, { desc = "LSP References" })
-map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
-map("v", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP Code Action (Visual)" })
-map("n", "<leader>lq", vim.lsp.buf.code_action, { desc = "LSP Quick Fix" })
-map("n", "<leader>ln", vim.lsp.buf.rename, { desc = "LSP Rename" })
-map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, { desc = "LSP Format" })
+map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "Go to Definition" })
+map("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "Go to Declaration" })
+map("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to Type Definition" })
+map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "Go to Implementation" })
+map("n", "<leader>lr", vim.lsp.buf.references, { desc = "Find References" })
+map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions" })
+map("v", "<leader>la", vim.lsp.buf.code_action, { desc = "Code Actions (Visual)" })
+map("n", "<leader>lq", vim.lsp.buf.code_action, { desc = "Quick Fix" })
+map("n", "<leader>ln", vim.lsp.buf.rename, { desc = "Rename Symbol" })
+map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Document" })
+map("v", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, { desc = "Format Selection" })
 map("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
-map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP Document Symbols" })
-map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "LSP Workspace Symbols" })
-map("n", "<leader>lc", vim.lsp.codelens.run, { desc = "LSP Code Lens" })
-map("n", "<leader>lC", vim.lsp.codelens.refresh, { desc = "Refresh Code Lens" })
 
--- Enhanced hover and signature help
-map("n", "<leader>lk", vim.lsp.buf.hover, { desc = "LSP Hover" })
-map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "LSP Signature Help" })
+-- Symbol navigation
+map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Document Symbols" })
+map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "Workspace Symbols" })
+map("n", "<leader>lc", vim.lsp.codelens.run, { desc = "Run Code Lens" })
+map("n", "<leader>lC", vim.lsp.codelens.refresh, { desc = "Refresh Code Lens" })
+map("n", "<leader>lo", "<cmd>Telescope lsp_outgoing_calls<CR>", { desc = "Outgoing Calls" })
+map("n", "<leader>li", "<cmd>Telescope lsp_incoming_calls<CR>", { desc = "Incoming Calls" })
+
+-- Enhanced hover and help
+map("n", "<leader>lk", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+map("n", "<leader>lK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
 -- Diagnostics navigation
 map("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
 map("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-map("n", "<leader>dl", "<cmd>Telescope diagnostics<CR>", { desc = "List Diagnostics" })
+map("n", "<leader>dl", "<cmd>Telescope diagnostics<CR>", { desc = "List All Diagnostics" })
+map("n", "<leader>dL", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "List Buffer Diagnostics" })
 map("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Show Diagnostic" })
+map("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Send Diagnostics to Loclist" })
+
+-- Quick navigation shortcuts
+map("n", "gd", function()
+	local ok, _ = pcall(vim.lsp.buf.definition)
+	if not ok then
+		vim.notify("LSP definition not available", vim.log.levels.WARN)
+	end
+end, { desc = "Go to Definition" })
+
+map("n", "gD", function()
+	local ok, _ = pcall(vim.lsp.buf.declaration)
+	if not ok then
+		vim.notify("LSP declaration not available", vim.log.levels.WARN)
+	end
+end, { desc = "Go to Declaration" })
+
+map("n", "gi", function()
+	local ok, _ = pcall(vim.lsp.buf.implementation)
+	if not ok then
+		vim.notify("LSP implementation not available", vim.log.levels.WARN)
+	end
+end, { desc = "Go to Implementation" })
+
+map("n", "gr", function()
+	local ok, _ = pcall(vim.lsp.buf.references)
+	if not ok then
+		vim.notify("LSP references not available", vim.log.levels.WARN)
+	end
+end, { desc = "Find References" })
+
+map("n", "K", function()
+	local ok, _ = pcall(vim.lsp.buf.hover)
+	if not ok then
+		vim.notify("LSP hover not available", vim.log.levels.WARN)
+	end
+end, { desc = "Hover Documentation" })
+
+map("n", "<C-k>", function()
+	local ok, _ = pcall(vim.lsp.buf.signature_help)
+	if not ok then
+		vim.notify("LSP signature help not available", vim.log.levels.WARN)
+	end
+end, { desc = "Signature Help" })
 
 -- Todo
 map("n", "<leader>I", ":TodoTelescope<CR>", { desc = "Todo Telescope" })
@@ -207,3 +480,55 @@ map("n", "<leader>zb", "<cmd>normal! zb<CR>", { desc = "Bottom current line" })
 -- Quick commands
 map("n", "<leader>cd", "<cmd>cd %:p:h<CR><cmd>pwd<CR>", { desc = "Change to current file directory" })
 map("n", "<leader>cp", "<cmd>let @+ = expand('%:p')<CR><cmd>echo 'Copied: ' . @+<CR>", { desc = "Copy current file path" })
+map("n", "<leader>cP", "<cmd>let @+ = expand('%:p:h')<CR><cmd>echo 'Copied: ' . @+<CR>", { desc = "Copy current file directory" })
+
+-- Enhanced search and navigation
+map("n", "<leader>sw", function()
+	local ok, _ = pcall(builtin.grep_string, { search = vim.fn.expand("<cword>") })
+	if not ok then
+		vim.notify("Word search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search Word Under Cursor" })
+
+map("n", "<leader>sW", function()
+	local ok, _ = pcall(builtin.grep_string, { search = vim.fn.expand("<cWORD>") })
+	if not ok then
+		vim.notify("WORD search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search WORD Under Cursor" })
+
+map("n", "<leader>sd", function()
+	local ok, _ = pcall(builtin.live_grep, { cwd = vim.fn.expand("%:p:h") })
+	if not ok then
+		vim.notify("Directory search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search in Directory" })
+
+map("n", "<leader>sp", function()
+	local ok, _ = pcall(builtin.live_grep)
+	if not ok then
+		vim.notify("Project search not available", vim.log.levels.WARN)
+	end
+end, { desc = "Search in Project" })
+
+-- Quick navigation
+map("n", "<leader>bb", function()
+	local ok, _ = pcall(builtin.buffers)
+	if not ok then
+		vim.notify("Buffer list not available", vim.log.levels.WARN)
+	end
+end, { desc = "List Buffers" })
+
+map("n", "<leader>bt", function()
+	local ok, _ = pcall(builtin.filetypes)
+	if not ok then
+		vim.notify("File types list not available", vim.log.levels.WARN)
+	end
+end, { desc = "List File Types" })
+
+map("n", "<leader>bh", function()
+	local ok, _ = pcall(builtin.oldfiles)
+	if not ok then
+		vim.notify("Recent files not available", vim.log.levels.WARN)
+	end
+end, { desc = "Recent Files" })
