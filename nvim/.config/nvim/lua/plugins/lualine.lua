@@ -138,11 +138,11 @@ return {
 				return { bg = mode_color[vim.fn.mode()], fg = colors.bg_dark, gui = "bold" }
 			end,
 			separator = { left = "", right = "" },
-			icon = "",
+			icon = "🚀",
 		}
 		local branch = {
 			"branch",
-			icon = "",
+			icon = "🌿",
 			color = { bg = colors.green, fg = colors.bg, gui = "bold" },
 			separator = { left = "", right = "" },
 		}
@@ -204,11 +204,11 @@ return {
 				},
 				lualine_y = {
 					{ "progress", separator = " ", padding = { left = 1, right = 0 } },
-					{ "location", separator = { left = "", right = "" }, icon = "" },
+					{ "location", separator = { left = "", right = "" }, icon = "📍" },
 				},
 				lualine_z = {
 					function()
-						return " " .. os.date("%R")
+						return "⏰ " .. os.date("%R")
 					end,
 				},
 			},
