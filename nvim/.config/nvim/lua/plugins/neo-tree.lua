@@ -19,9 +19,9 @@ return {
 			show_scrolled_off_parent_node = true,
 			padding = { left = 1, right = 0 },
 			sources = {
-				{ source = "filesystem", display_name = "  Files" },
-				{ source = "buffers", display_name = "  Buffers" },
-				{ source = "git_status", display_name = "  Git" },
+				{ source = "filesystem", display_name = "  Files" }, --      
+				{ source = "buffers", display_name = "  Buffers" }, --      
+				{ source = "git_status", display_name = " 󰊢 Git" }, -- 󰊢      
 			},
 		},
 		event_handlers = {
@@ -38,14 +38,12 @@ return {
 				with_expanders = false,
 			},
 			icon = {
-				folder_closed = " ",
-				folder_open = " ",
 				folder_empty = "",
 				folder_empty_open = "",
 				default = "",
 			},
 			modified = {
-				symbol = " ",
+				symbol = "•",
 			},
 			name = {
 				trailing_slash = true,
@@ -55,61 +53,31 @@ return {
 			git_status = {
 				symbols = {
 					-- Change type
-					added = " ",
-					deleted = " ",
-					modified = " ",
-					renamed = " ",
+					added = "",
+					deleted = "",
+					modified = "󰊢",
+					renamed = "",
 					-- Status type
-					untracked = " ",
-					ignored = " ",
-					unstaged = " ",
-					staged = " ",
-					conflict = " ",
+					untracked = "",
+					ignored = "",
+					unstaged = "",
+					staged = "󰊢",
+					conflict = "",
 				},
 			},
 		},
 		window = {
-			width = 35,
-			winblend = 10,
-			position = "left",
+			width = 30, -- Default 40
 			mappings = {
 				["q"] = "close_window",
 				["?"] = "noop",
 				["g?"] = "show_help",
 				["<leader>"] = "noop",
-				-- Enhanced navigation
-				["<C-v>"] = "open_vsplit",
-				["<C-x>"] = "open_split",
-				["<C-t>"] = "open_tabnew",
-				["<CR>"] = "open",
-				["<2-LeftMouse>"] = "open",
-				-- File operations
-				["<C-c>"] = "copy",
-				["<C-r>"] = "rename",
-				["<C-d>"] = "delete",
-				["<C-n>"] = "add",
-				["<C-p>"] = "paste_from_clipboard",
-				-- View controls
-				["R"] = "refresh",
-				["H"] = "toggle_hidden",
-				["/"] = "fuzzy_finder",
-				["#"] = "fuzzy_sorter",
-				-- Navigation
-				["<"] = "prev_source",
-				[">"] = "next_source",
-				["w"] = "open_with_window_picker",
-				-- Git operations
-				["ga"] = "git_add_file",
-				["gr"] = "git_revert_file",
-				["gc"] = "git_commit",
-				["gp"] = "git_push",
-				["gg"] = "git_commit_and_push",
 			},
 		},
-		filtered_items = {
+		iltered_items = {
 			hide_dotfiles = false,
 			hide_gitignored = false,
-			hide_hidden = false, -- Show hidden files
 			hide_by_name = {
 				".git",
 				".hg",
@@ -123,23 +91,7 @@ return {
 				"__pycache__",
 				".stfolder",
 				".stversions",
-				".next",
-				".nuxt",
-				".vuepress",
-				".cache",
-				".parcel-cache",
-			},
-			never_show = {
-				".DS_Store",
-				"thumbs.db",
 			},
 		},
-		-- Enhanced features
-		follow_current_file = {
-			enabled = true,
-			leave_dirs_open = false,
-		},
-		group_empty_dirs = true,
-		auto_expand_width = false,
 	},
 }

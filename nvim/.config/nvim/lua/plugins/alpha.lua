@@ -30,21 +30,6 @@ return {
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
 		}
 
-		-- Set highlights for catppuccin integration
-		dashboard.section.header.opts.hl = "AlphaHeader"
-		dashboard.section.buttons.opts.hl = "AlphaButtons"
-		dashboard.section.footer.opts.hl = "AlphaFooter"
-
-		-- Define highlight groups - consistent with lualine theme
-		local colors = {
-			blue = "#74c0fc",
-			magenta = "#f783ac",
-			green = "#51cf66",
-		}
-		vim.api.nvim_set_hl(0, "AlphaHeader", { fg = colors.blue, bold = true })
-		vim.api.nvim_set_hl(0, "AlphaButtons", { fg = colors.magenta })
-		vim.api.nvim_set_hl(0, "AlphaFooter", { fg = colors.green, italic = true })
-
 		-- Send config to alpha
 		alpha.setup(dashboard.opts)
 
@@ -54,7 +39,7 @@ return {
 			callback = function()
 				local stats = require("lazy").stats()
 				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-				dashboard.section.footer.val = " Neovim loaded "
+				dashboard.section.footer.val = "⚡ Neovim loaded "
 					.. stats.loaded
 					.. "/"
 					.. stats.count

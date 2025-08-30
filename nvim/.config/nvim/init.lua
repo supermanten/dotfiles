@@ -1,13 +1,3 @@
--- Startup profiling (run with NVIM_PROFILE=1 nvim to enable)
-if vim.env.NVIM_PROFILE then
-	require("plenary.profile").start("profile.log", { flame = true })
-	vim.api.nvim_create_autocmd("VimLeavePre", {
-		callback = function()
-			require("plenary.profile").stop()
-		end,
-	})
-end
-
 require("configs.options")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -38,27 +28,7 @@ require("lazy").setup({
 				"tohtml",
 				"tutor",
 				"zipPlugin",
-				"spellfile_plugin",
-				"man",
 			},
-		},
-		reset_packpath = true,
-		cache = {
-			enabled = true,
-			path = vim.fn.stdpath("cache") .. "/lazy/cache",
-			compress = true,
-		},
-		checker = {
-			enabled = false, -- Disable automatic check for plugin updates
-		},
-		change_detection = {
-			notify = false, -- Don't notify when config files change
-		},
-		-- Additional performance optimizations
-		profiling = {
-			-- Only load loader and build profiles if NVIM_PROFILE is set
-			loader = vim.env.NVIM_PROFILE ~= nil,
-			require = vim.env.NVIM_PROFILE ~= nil,
 		},
 	},
 	ui = {

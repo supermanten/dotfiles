@@ -12,8 +12,8 @@ return {
 		},
 		icons = {
 			breadcrumb = "»",
-			separator = " ",
-			group = " ",
+			separator = "➜",
+			group = "+",
 		},
 		plugins = {
 			marks = true,

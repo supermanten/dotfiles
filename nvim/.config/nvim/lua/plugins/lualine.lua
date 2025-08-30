@@ -6,46 +6,37 @@ return {
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
-		-- Custom vibrant color scheme with excellent contrast and readability
-		-- Inspired by modern dark themes with vibrant accents
 		local colors = {
-			-- Base colors - Deep dark with high contrast
-			bg = "#0f0f23", -- Deep dark blue background
-			fg = "#e2e8f0", -- Bright white foreground (high contrast)
-			subtext1 = "#cbd5e1", -- Light gray for secondary text
-			subtext2 = "#94a3b8", -- Medium gray
-			subtext3 = "#64748b", -- Darker gray
-			subtext4 = "#475569", -- Even darker gray
-			bg_dark = "#0a0a14", -- Darker background for contrast
-			black = "#1e1e2e", -- Dark background
-
-			-- Vibrant accent colors - Carefully chosen for visibility
-			red = "#ff6b6b", -- Coral red (high visibility)
-			green = "#51cf66", -- Bright green (excellent contrast)
-			yellow = "#ffd43b", -- Golden yellow (warm and visible)
-			purple = "#9775fa", -- Soft purple (balanced)
-			magenta = "#f783ac", -- Pink magenta (vibrant)
-			orange = "#ff922b", -- Bright orange (energetic)
-			blue = "#74c0fc", -- Sky blue (calm and visible)
-			cyan = "#4dabf7", -- Bright cyan (modern)
-
-			-- Bright variants for highlights - Slightly muted for better readability
-			bright_red = "#ff8787", -- Lighter red
-			bright_green = "#69db7c", -- Lighter green
-			bright_yellow = "#ffe066", -- Lighter yellow
-			bright_purple = "#b197fc", -- Lighter purple
-			bright_magenta = "#faa2c1", -- Lighter magenta
-			bright_orange = "#ffb74d", -- Lighter orange
-			bright_blue = "#8cc8ff", -- Lighter blue
-			bright_cyan = "#74d4ff", -- Lighter cyan
-
-			-- Gray scale for subtle elements - Consistent with base colors
-			gray0 = "#0f0f23", -- Same as bg
-			gray1 = "#1a1a2e", -- Slightly lighter
-			gray2 = "#2a2a3e", -- Medium gray-blue
-			gray3 = "#3a3a4e", -- Lighter gray-blue
-			gray4 = "#4a4a5e", -- Even lighter
-
+			bg = "#161617",
+			fg = "#c9c7cd",
+			subtext1 = "#b4b1ba",
+			subtext2 = "#9f9ca6",
+			subtext3 = "#8b8693",
+			subtext4 = "#6c6874",
+			bg_dark = "#131314",
+			black = "#27272a",
+			red = "#ea83a5",
+			green = "#90b99f",
+			yellow = "#e6b99d",
+			purple = "#aca1cf",
+			magenta = "#e29eca",
+			orange = "#f5a191",
+			blue = "#92a2d5",
+			cyan = "#85b5ba",
+			bright_black = "#353539",
+			bright_red = "#f591b2",
+			bright_green = "#9dc6ac",
+			bright_yellow = "#f0c5a9",
+			bright_purple = "#b9aeda",
+			bright_magenta = "#ecaad6",
+			bright_orange = "#ffae9f",
+			bright_blue = "#a6b6e9",
+			bright_cyan = "#99c9ce",
+			gray0 = "#18181a",
+			gray1 = "#1b1b1c",
+			gray2 = "#2a2a2c",
+			gray3 = "#313134",
+			gray4 = "#3b3b3e",
 			-- Special
 			none = "NONE",
 		}
@@ -119,33 +110,26 @@ return {
 			},
 		}
 		local modecolor = {
-			-- Normal mode - vibrant blue
-			n = colors.blue,
-			no = colors.blue,
-			-- Insert mode - bright green
-			i = colors.green,
-			ic = colors.green,
-			-- Visual modes - purple/violet
+			n = colors.red,
+			i = colors.cyan,
 			v = colors.purple,
-			[""] = colors.bright_purple,
-			V = colors.purple,
-			-- Command/terminal modes - orange
-			c = colors.orange,
-			t = colors.bright_orange,
-			-- Replace modes - red
-			R = colors.red,
-			Rv = colors.bright_red,
-			-- Select modes - magenta
-			s = colors.magenta,
-			S = colors.magenta,
-			[""] = colors.bright_magenta,
-			-- Other modes
+			[""] = colors.purple,
+			V = colors.red,
+			c = colors.yellow,
+			no = colors.red,
+			s = colors.yellow,
+			S = colors.yellow,
+			[""] = colors.yellow,
+			ic = colors.yellow,
+			R = colors.green,
+			Rv = colors.purple,
 			cv = colors.red,
 			ce = colors.red,
 			r = colors.cyan,
 			rm = colors.cyan,
 			["r?"] = colors.cyan,
 			["!"] = colors.red,
+			t = colors.bright_red,
 		}
 		local modes = {
 			"mode",
@@ -153,16 +137,14 @@ return {
 				local mode_color = modecolor
 				return { bg = mode_color[vim.fn.mode()], fg = colors.bg_dark, gui = "bold" }
 			end,
-			separator = { left = "", right = "" },
-			icon = " ",
-			padding = { left = 1, right = 1 },
+			separator = { left = "", right = "" },
+			icon = "",
 		}
 		local branch = {
 			"branch",
-			icon = " ",
-			color = { bg = colors.gray3, fg = colors.green, gui = "bold" },
-			separator = { left = "", right = "" },
-			padding = { left = 1, right = 1 },
+			icon = "",
+			color = { bg = colors.green, fg = colors.bg, gui = "bold" },
+			separator = { left = "", right = "" },
 		}
 
 		local space = {
@@ -174,41 +156,10 @@ return {
 		-- configure lualine with modified theme
 		lualine.setup({
 			options = {
-				theme = {
-					normal = {
-						a = { bg = colors.blue, fg = colors.bg_dark, gui = "bold" },
-						b = { bg = colors.gray2, fg = colors.fg },
-						c = { bg = colors.bg, fg = colors.fg },
-					},
-					insert = {
-						a = { bg = colors.green, fg = colors.bg_dark, gui = "bold" },
-						b = { bg = colors.gray2, fg = colors.fg },
-						c = { bg = colors.bg, fg = colors.fg },
-					},
-					visual = {
-						a = { bg = colors.purple, fg = colors.bg_dark, gui = "bold" },
-						b = { bg = colors.gray2, fg = colors.fg },
-						c = { bg = colors.bg, fg = colors.fg },
-					},
-					replace = {
-						a = { bg = colors.red, fg = colors.bg_dark, gui = "bold" },
-						b = { bg = colors.gray2, fg = colors.fg },
-						c = { bg = colors.bg, fg = colors.fg },
-					},
-					command = {
-						a = { bg = colors.orange, fg = colors.bg_dark, gui = "bold" },
-						b = { bg = colors.gray2, fg = colors.fg },
-						c = { bg = colors.bg, fg = colors.fg },
-					},
-					inactive = {
-						a = { bg = colors.gray1, fg = colors.subtext3, gui = "bold" },
-						b = { bg = colors.gray1, fg = colors.subtext3 },
-						c = { bg = colors.gray1, fg = colors.subtext3 },
-					},
-				},
+				theme = require("themes/lualine_theme").theme(),
+				-- theme = "catppuccin",
 				icons_enabled = true,
-				section_separators = { left = "", right = "" },
-				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
 					statusline = {},
 					winbar = {},
@@ -229,123 +180,34 @@ return {
 							info = icons.diagnostics.Info,
 							hint = icons.diagnostics.Hint,
 						},
-						color = {
-							error = { fg = colors.bright_red },
-							warn = { fg = colors.bright_yellow },
-							info = { fg = colors.bright_blue },
-							hint = { fg = colors.bright_cyan },
-						},
 					},
-					{
-						"filetype",
-						icon_only = true,
-						separator = "",
-						padding = { left = 1, right = 0 },
-						color = { fg = colors.blue },
-					},
+					{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
 				},
 				lualine_x = {
 					{
 						lazy_status.updates,
 						cond = lazy_status.has_updates,
-						color = { fg = colors.bright_orange, bg = colors.gray2 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
-					{
+						color = { fg = "#ff9e64" },
 						"diff",
 						symbols = {
 							added = icons.git.added,
 							modified = icons.git.modified,
 							removed = icons.git.removed,
 						},
-						color = {
-							added = { fg = colors.green },
-							modified = { fg = colors.yellow },
-							removed = { fg = colors.red },
-						},
 					},
-					{
-						"encoding",
-						color = { fg = colors.cyan, bg = colors.gray2 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
-					{
-						"fileformat",
-						color = { fg = colors.magenta, bg = colors.gray2 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
-					{
-						"filetype",
-						color = { fg = colors.blue, bg = colors.gray2 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
+					-- { "encoding" },
+					{ "fileformat" },
+					{ "filetype" },
 				},
 				lualine_y = {
-					{
-						"progress",
-						color = { fg = colors.fg, bg = colors.gray3 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
-					{
-						"location",
-						color = { fg = colors.fg, bg = colors.gray3 },
-						separator = { left = "", right = "" },
-						icon = " ",
-						padding = { left = 1, right = 1 },
-					},
+					{ "progress", separator = " ", padding = { left = 1, right = 0 } },
+					{ "location", separator = { left = "", right = "" }, icon = "" },
 				},
 				lualine_z = {
-					{
-						function()
-							return " " .. os.date("%R")
-						end,
-						color = { fg = colors.bg_dark, bg = colors.cyan },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
+					function()
+						return " " .. os.date("%R")
+					end,
 				},
-			},
-			winbar = {
-				lualine_a = {},
-				lualine_b = {
-					{
-						"filename",
-						path = 1, -- Show relative path
-						symbols = {
-							modified = " ",
-							readonly = " ",
-							unnamed = "[No Name]",
-						},
-						color = { fg = colors.fg, bg = colors.gray1 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
-				},
-				lualine_c = {},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {},
-			},
-			inactive_winbar = {
-				lualine_a = {},
-				lualine_b = {
-					{
-						"filename",
-						path = 1,
-						color = { fg = colors.subtext3, bg = colors.gray0 },
-						separator = { left = "", right = "" },
-						padding = { left = 1, right = 1 },
-					},
-				},
-				lualine_c = {},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {},
 			},
 		})
 	end,

@@ -15,7 +15,6 @@ return {
 				statusline = {
 					app_version = false,
 					device = true,
-					device_icon = " ",
 				},
 			},
 			widget_guides = {
@@ -32,7 +31,7 @@ return {
 					background = false,
 					foreground = false,
 					virtual_text = true,
-					virtual_text_str = " ",
+					virtual_text_str = "■",
 				},
 				settings = {
 					showTodos = true,
