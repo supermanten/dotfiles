@@ -212,6 +212,37 @@ return {
 					end,
 				},
 			},
+			winbar = {
+				lualine_a = {},
+				lualine_b = {
+					{
+						"filename",
+						path = 1, -- Show relative path
+						symbols = {
+							modified = "●",
+							readonly = "",
+							unnamed = "[No Name]",
+						},
+					},
+				},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
+			inactive_winbar = {
+				lualine_a = {},
+				lualine_b = {
+					{
+						"filename",
+						path = 1,
+					},
+				},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
 		})
 	end,
 }
