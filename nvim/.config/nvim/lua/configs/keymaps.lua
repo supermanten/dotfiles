@@ -113,4 +113,20 @@ map("n", "<A-k>", ":move .-2<CR>==", { desc = "Move Line Up" })
 map("v", "<A-j>", ":move '>+1<CR>gv=gv", { desc = "Move Selection Down" })
 map("v", "<A-k>", ":move '<-2<CR>gv=gv", { desc = "Move Selection Up" })
 map("i", "<A-j>", "<Esc>:move .+1<CR>==gi", { desc = "Move Line Down" })
-map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
+	map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
+
+-- Toggle high-contrast mode
+vim.api.nvim_create_user_command("ToggleContrast", function()
+	local current = vim.g.high_contrast or false
+	if current then
+		vim.cmd("colorscheme catppuccin")
+		vim.g.high_contrast = false
+	else
+		vim.cmd("hi Normal guibg=#000000 guifg=#ffffff")
+		vim.cmd("hi Comment guifg=#888888")
+		vim.g.high_contrast = true
+	end
+end, {})
+
+map("n", "<leader>hc", "<cmd>ToggleContrast<CR>", { desc = "Toggle High Contrast" })
+
