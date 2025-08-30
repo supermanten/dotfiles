@@ -144,33 +144,23 @@ vim.api.nvim_create_autocmd({ "UiEnter", "ColorScheme" }, {
     ]])
 		--4.
 		vim.cmd("hi StatusLine guibg=NONE ctermbg=NONE")
-		-- Additional transparency
-		vim.cmd("hi SignColumn guibg=NONE")
-		vim.cmd("hi FoldColumn guibg=NONE")
-		vim.cmd("hi VertSplit guibg=NONE")
-		vim.cmd("hi LineNr guibg=NONE")
-		-- Custom highlights for consistency
-		vim.cmd("hi Folded guibg=NONE guifg=#cdd6f4")
-		vim.cmd("hi Search guibg=#f9e2af guifg=#1e1e2e")
-		vim.cmd("hi IncSearch guibg=#f38ba8 guifg=#1e1e2e")
-		vim.cmd("hi MatchParen guibg=#f5c2e7 guifg=#1e1e2e")
 	end,
 })
 
 -- Dim inactive windows
-vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
-	pattern = "*",
-	callback = function()
-		vim.wo.winhighlight = "Normal:Normal,NormalNC:Normal"
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
-	pattern = "*",
-	callback = function()
-		vim.wo.winhighlight = "Normal:Normal,NormalNC:NormalNC"
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.wo.winhighlight = "Normal:Normal,NormalNC:Normal"
+-- 	end,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.wo.winhighlight = "Normal:ColorColumn,NormalNC:ColorColumn"
+-- 	end,
+-- })
 
 -- Show relative line numbers in normal mode, absolute in insert mode
 vim.opt.number = true

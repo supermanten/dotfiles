@@ -37,7 +37,11 @@ return {
 
 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
-			["<C-a>"] = { function(cmp) cmp.show({ providers = { "codeium" } }) end },
+			["<C-a>"] = {
+				function(cmp)
+					cmp.show({ providers = { "codeium" } })
+				end,
+			},
 		},
 		appearance = {
 			kind_icons = {
@@ -95,7 +99,11 @@ return {
 					},
 				},
 			},
-			documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = "rounded", winblend = 10 } },
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 500,
+				window = { border = "rounded", winblend = 10 },
+			},
 		},
 		signature = { enabled = true, window = { border = "rounded" } },
 		cmdline = {

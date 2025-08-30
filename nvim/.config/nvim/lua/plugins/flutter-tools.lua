@@ -31,7 +31,7 @@ return {
 					enabled = true,
 					background = false,
 					foreground = false,
-					virtual_text = false,
+					virtual_text = true,
 					virtual_text_str = " ",
 				},
 				settings = {
@@ -40,14 +40,14 @@ return {
 					enableSnippets = true,
 				},
 			},
-			debugger = {
-				enabled = false,
-				run_via_dap = false,
-			},
-			dev_log = {
-				enabled = false,
-				open_cmd = "tabedit",
-			},
+			-- debugger = {
+			-- 	enabled = true,
+			-- 	run_via_dap = false,
+			-- },
+			-- dev_log = {
+			--   enabled = true,
+			--   open_cmd = "tabedit", -- command to use to open the log buffer
+			-- },
 		})
 	end,
 }

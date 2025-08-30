@@ -32,7 +32,6 @@ return {
 				vim.notify("blink.cmp not found, LSP capabilities may be limited", vim.log.levels.WARN)
 				return
 			end
-
 			local capabilities = blink_cmp.get_lsp_capabilities()
 
 			local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
@@ -57,19 +56,6 @@ return {
 					header = "",
 					prefix = "",
 				},
-			})
-
-			-- Enhanced hover and signature help
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				border = "rounded",
-				max_width = 80,
-				max_height = 20,
-			})
-
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = "rounded",
-				max_width = 80,
-				max_height = 20,
 			})
 
 			-- Configure inlay hints (if supported by LSP)
@@ -139,24 +125,6 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 			end
 
-			-- Optional: Add keybinding to toggle virtual text
-			vim.keymap.set("n", "<leader>dv", function()
-				local config = vim.diagnostic.config()
-				vim.diagnostic.config({
-					virtual_text = not config.virtual_text,
-				})
-				vim.notify(
-					config.virtual_text and "Virtual text disabled" or "Virtual text enabled",
-					vim.log.levels.INFO
-				)
-			end, { desc = "Toggle diagnostic virtual text" })
-
-			-- Add keybinding to restart LSP servers (useful if duplicates occur)
-			vim.keymap.set("n", "<leader>lr", function()
-				vim.cmd("LspRestart")
-				vim.notify("LSP servers restarted", vim.log.levels.INFO)
-			end, { desc = "Restart LSP servers" })
-
 			local servers = {
 				"lua_ls",
 				"dartls",
@@ -165,14 +133,6 @@ return {
 				"rust_analyzer",
 				"clangd",
 				"jdtls",
-				-- Additional language servers
-				"ts_ls", -- TypeScript/JavaScript
-				"html", -- HTML
-				"cssls", -- CSS
-				"jsonls", -- JSON
-				"yamlls", -- YAML
-				"bashls", -- Bash
-				"dockerls", -- Docker
 			} -- rust_analyzer need rust-src need installed
 
 			for _, lsp in ipairs(servers) do

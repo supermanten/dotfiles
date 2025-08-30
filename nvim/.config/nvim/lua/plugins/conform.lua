@@ -1,4 +1,4 @@
-	return {
+return {
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre", "BufReadPre" },
@@ -14,30 +14,30 @@
 			},
 		},
 		opts = {
-		formatters_by_ft = {
-			lua = { "stylua" },
-			dart = { "dartls" },
-			go = { "goimports", "gofumpt" },
-			python = { "ruff_format", "ruff_fix", "black", "isort" },
-			cpp = { "clang_format" },
-			c = { "clang_format" },
-			rust = { "rustfmt" },
-			java = { "google_java_format" },
+			formatters_by_ft = {
+				lua = { "stylua" },
+				dart = { "dartls" },
+				go = { "goimports", "gofumpt" },
+				python = { "ruff_format", "ruff_fix", "black", "isort" },
+				cpp = { "clang_format" },
+				c = { "clang_format" },
+				rust = { "rustfmt" },
+				java = { "google_java_format" },
 
-			-- Expanded web development support
-			javascript = { "prettierd", "prettier", "eslint_d" },
-			typescript = { "prettierd", "prettier", "eslint_d" },
-			javascriptreact = { "prettierd", "prettier", "eslint_d" },
-			typescriptreact = { "prettierd", "prettier", "eslint_d" },
-			css = { "prettierd", "prettier", "stylelint" },
-			html = { "prettierd", "prettier" },
-			json = { "prettierd", "prettier", "jq" },
-			yaml = { "prettierd", "prettier", "yamlfmt" },
-			markdown = { "prettierd", "prettier", "markdownlint" },
-			sh = { "shfmt", "shellcheck" },
-			bash = { "shfmt", "shellcheck" },
-			zsh = { "shfmt", "shellcheck" },
-		},
+				-- Expanded web development support
+				javascript = { "prettierd", "prettier", "eslint_d" },
+				typescript = { "prettierd", "prettier", "eslint_d" },
+				javascriptreact = { "prettierd", "prettier", "eslint_d" },
+				typescriptreact = { "prettierd", "prettier", "eslint_d" },
+				css = { "prettierd", "prettier", "stylelint" },
+				html = { "prettierd", "prettier" },
+				json = { "prettierd", "prettier", "jq" },
+				yaml = { "prettierd", "prettier", "yamlfmt" },
+				markdown = { "prettierd", "prettier", "markdownlint" },
+				sh = { "shfmt", "shellcheck" },
+				bash = { "shfmt", "shellcheck" },
+				zsh = { "shfmt", "shellcheck" },
+			},
 		},
 		-- Enable format-on-save using an autocmd
 		config = function(_, opts)

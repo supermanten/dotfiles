@@ -10,41 +10,41 @@ return {
 		-- Inspired by modern dark themes with vibrant accents
 		local colors = {
 			-- Base colors - Deep dark with high contrast
-			bg = "#0f0f23",           -- Deep dark blue background
-			fg = "#e2e8f0",           -- Bright white foreground (high contrast)
-			subtext1 = "#cbd5e1",     -- Light gray for secondary text
-			subtext2 = "#94a3b8",     -- Medium gray
-			subtext3 = "#64748b",     -- Darker gray
-			subtext4 = "#475569",     -- Even darker gray
-			bg_dark = "#0a0a14",     -- Darker background for contrast
-			black = "#1e1e2e",        -- Dark background
+			bg = "#0f0f23", -- Deep dark blue background
+			fg = "#e2e8f0", -- Bright white foreground (high contrast)
+			subtext1 = "#cbd5e1", -- Light gray for secondary text
+			subtext2 = "#94a3b8", -- Medium gray
+			subtext3 = "#64748b", -- Darker gray
+			subtext4 = "#475569", -- Even darker gray
+			bg_dark = "#0a0a14", -- Darker background for contrast
+			black = "#1e1e2e", -- Dark background
 
 			-- Vibrant accent colors - Carefully chosen for visibility
-			red = "#ff6b6b",          -- Coral red (high visibility)
-			green = "#51cf66",        -- Bright green (excellent contrast)
-			yellow = "#ffd43b",       -- Golden yellow (warm and visible)
-			purple = "#9775fa",       -- Soft purple (balanced)
-			magenta = "#f783ac",      -- Pink magenta (vibrant)
-			orange = "#ff922b",       -- Bright orange (energetic)
-			blue = "#74c0fc",         -- Sky blue (calm and visible)
-			cyan = "#4dabf7",         -- Bright cyan (modern)
+			red = "#ff6b6b", -- Coral red (high visibility)
+			green = "#51cf66", -- Bright green (excellent contrast)
+			yellow = "#ffd43b", -- Golden yellow (warm and visible)
+			purple = "#9775fa", -- Soft purple (balanced)
+			magenta = "#f783ac", -- Pink magenta (vibrant)
+			orange = "#ff922b", -- Bright orange (energetic)
+			blue = "#74c0fc", -- Sky blue (calm and visible)
+			cyan = "#4dabf7", -- Bright cyan (modern)
 
 			-- Bright variants for highlights - Slightly muted for better readability
-			bright_red = "#ff8787",   -- Lighter red
+			bright_red = "#ff8787", -- Lighter red
 			bright_green = "#69db7c", -- Lighter green
 			bright_yellow = "#ffe066", -- Lighter yellow
 			bright_purple = "#b197fc", -- Lighter purple
 			bright_magenta = "#faa2c1", -- Lighter magenta
 			bright_orange = "#ffb74d", -- Lighter orange
-			bright_blue = "#8cc8ff",   -- Lighter blue
-			bright_cyan = "#74d4ff",   -- Lighter cyan
+			bright_blue = "#8cc8ff", -- Lighter blue
+			bright_cyan = "#74d4ff", -- Lighter cyan
 
 			-- Gray scale for subtle elements - Consistent with base colors
-			gray0 = "#0f0f23",        -- Same as bg
-			gray1 = "#1a1a2e",        -- Slightly lighter
-			gray2 = "#2a2a3e",        -- Medium gray-blue
-			gray3 = "#3a3a4e",        -- Lighter gray-blue
-			gray4 = "#4a4a5e",        -- Even lighter
+			gray0 = "#0f0f23", -- Same as bg
+			gray1 = "#1a1a2e", -- Slightly lighter
+			gray2 = "#2a2a3e", -- Medium gray-blue
+			gray3 = "#3a3a4e", -- Lighter gray-blue
+			gray4 = "#4a4a5e", -- Even lighter
 
 			-- Special
 			none = "NONE",
@@ -241,7 +241,7 @@ return {
 						icon_only = true,
 						separator = "",
 						padding = { left = 1, right = 0 },
-						color = { fg = colors.blue }
+						color = { fg = colors.blue },
 					},
 				},
 				lualine_x = {
