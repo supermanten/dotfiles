@@ -54,7 +54,6 @@ return {
 				-- Enhanced diagnostics
 				float = {
 					border = "rounded",
-					source = "always",
 					header = "",
 					prefix = "",
 				},
