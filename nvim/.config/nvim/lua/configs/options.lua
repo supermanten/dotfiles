@@ -90,6 +90,9 @@ g.background = "dark"
 
 vim.wo.number = true
 
+-- Statuscolumn for signs, numbers, folds
+vim.opt.statuscolumn = "%s%=%{v:relnum?v:relnum:v:lnum} "
+
 -- lsp setup
 
 -- provided by rust-analyzer.

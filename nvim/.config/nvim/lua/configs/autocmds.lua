@@ -149,6 +149,11 @@ vim.api.nvim_create_autocmd({ "UiEnter", "ColorScheme" }, {
 		vim.cmd("hi FoldColumn guibg=NONE")
 		vim.cmd("hi VertSplit guibg=NONE")
 		vim.cmd("hi LineNr guibg=NONE")
+		-- Custom highlights for consistency
+		vim.cmd("hi Folded guibg=NONE guifg=#cdd6f4")
+		vim.cmd("hi Search guibg=#f9e2af guifg=#1e1e2e")
+		vim.cmd("hi IncSearch guibg=#f38ba8 guifg=#1e1e2e")
+		vim.cmd("hi MatchParen guibg=#f5c2e7 guifg=#1e1e2e")
 	end,
 })
 
