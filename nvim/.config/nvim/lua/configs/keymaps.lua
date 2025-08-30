@@ -109,11 +109,30 @@ map("n", "<leader>fs", builtin.symbols, { desc = "Find Symbols" })
 -- ## LSP
 -- Grouped under leader + l
 map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "LSP Definition" })
-map("n", "<leader>li", vim.lsp.buf.references, { desc = "LSP References" })
+map("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "LSP Declaration" })
+map("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "LSP Type Definition" })
+map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "LSP Implementation" })
+map("n", "<leader>lr", vim.lsp.buf.references, { desc = "LSP References" })
 map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+map("v", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP Code Action (Visual)" })
+map("n", "<leader>lq", vim.lsp.buf.code_action, { desc = "LSP Quick Fix" })
 map("n", "<leader>ln", vim.lsp.buf.rename, { desc = "LSP Rename" })
-map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP Symbols" })
-map("n", "<leader>lws", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "LSP Workspace Symbols" })
+map("n", "<leader>lf", function() vim.lsp.buf.format({ async = true }) end, { desc = "LSP Format" })
+map("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
+map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP Document Symbols" })
+map("n", "<leader>lS", "<cmd>Telescope lsp_workspace_symbols<CR>", { desc = "LSP Workspace Symbols" })
+map("n", "<leader>lc", vim.lsp.codelens.run, { desc = "LSP Code Lens" })
+map("n", "<leader>lC", vim.lsp.codelens.refresh, { desc = "Refresh Code Lens" })
+
+-- Enhanced hover and signature help
+map("n", "<leader>lk", vim.lsp.buf.hover, { desc = "LSP Hover" })
+map("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "LSP Signature Help" })
+
+-- Diagnostics navigation
+map("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "Previous Diagnostic" })
+map("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+map("n", "<leader>dl", "<cmd>Telescope diagnostics<CR>", { desc = "List Diagnostics" })
+map("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Show Diagnostic" })
 
 -- Todo
 map("n", "<leader>I", ":TodoTelescope<CR>", { desc = "Todo Telescope" })
