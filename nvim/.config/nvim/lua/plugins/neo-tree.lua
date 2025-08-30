@@ -19,9 +19,9 @@ return {
 			show_scrolled_off_parent_node = true,
 			padding = { left = 1, right = 0 },
 			sources = {
-				{ source = "filesystem", display_name = " 📁 Files" },
-				{ source = "buffers", display_name = " 📋 Buffers" },
-				{ source = "git_status", display_name = " 🌳 Git" },
+				{ source = "filesystem", display_name = "  Files" },
+				{ source = "buffers", display_name = "  Buffers" },
+				{ source = "git_status", display_name = "  Git" },
 			},
 		},
 		event_handlers = {
@@ -38,12 +38,14 @@ return {
 				with_expanders = false,
 			},
 			icon = {
+				folder_closed = " ",
+				folder_open = " ",
 				folder_empty = "",
 				folder_empty_open = "",
 				default = "",
 			},
 			modified = {
-				symbol = "•",
+				symbol = " ",
 			},
 			name = {
 				trailing_slash = true,
@@ -53,16 +55,16 @@ return {
 			git_status = {
 				symbols = {
 					-- Change type
-					added = "",
-					deleted = "",
-					modified = "󰊢",
-					renamed = "",
+					added = " ",
+					deleted = " ",
+					modified = " ",
+					renamed = " ",
 					-- Status type
-					untracked = "",
-					ignored = "",
-					unstaged = "",
-					staged = "󰊢",
-					conflict = "",
+					untracked = " ",
+					ignored = " ",
+					unstaged = " ",
+					staged = " ",
+					conflict = " ",
 				},
 			},
 		},
