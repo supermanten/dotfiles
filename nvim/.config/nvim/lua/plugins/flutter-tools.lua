@@ -31,7 +31,7 @@ return {
 					enabled = true,
 					background = false,
 					foreground = false,
-					virtual_text = true,
+					virtual_text = false,
 					virtual_text_str = " ",
 				},
 				settings = {
@@ -41,11 +41,11 @@ return {
 				},
 			},
 			debugger = {
-				enabled = true,
+				enabled = false,
 				run_via_dap = false,
 			},
 			dev_log = {
-				enabled = true,
+				enabled = false,
 				open_cmd = "tabedit",
 			},
 		})
