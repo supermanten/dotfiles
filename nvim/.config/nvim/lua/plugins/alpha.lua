@@ -30,6 +30,16 @@ return {
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
 		}
 
+		-- Set highlights for catppuccin integration
+		dashboard.section.header.opts.hl = "AlphaHeader"
+		dashboard.section.buttons.opts.hl = "AlphaButtons"
+		dashboard.section.footer.opts.hl = "AlphaFooter"
+
+		-- Define highlight groups
+		vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#89b4fa", bold = true })
+		vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#f38ba8" })
+		vim.api.nvim_set_hl(0, "AlphaFooter", { fg = "#a6e3a1", italic = true })
+
 		-- Send config to alpha
 		alpha.setup(dashboard.opts)
 

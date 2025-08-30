@@ -11,8 +11,10 @@ return {
 		},
 	},
 	opts = {
-		stages = "static",
+		stages = "fade_in_slide_out",
 		timeout = 3000,
+		max_width = 50,
+		max_height = 10,
 		icons = {
 			ERROR = "",
 			WARN = "",
@@ -21,5 +23,6 @@ return {
 			TRACE = "✎",
 		},
 		border = "rounded",
+		background_colour = "#000000",
 	},
 }
