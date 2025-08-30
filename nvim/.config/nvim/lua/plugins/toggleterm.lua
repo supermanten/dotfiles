@@ -8,6 +8,11 @@ return {
 				insert_mappings = true,
 				close_on_exit = true,
 				direction = "float",
+				persist_size = true,
+				persist_mode = true,
+				size = 20,
+				open_mapping = [[<c-\>]],
+				hide_numbers = true,
 				float_opts = {
 					border = "rounded",
 				},
