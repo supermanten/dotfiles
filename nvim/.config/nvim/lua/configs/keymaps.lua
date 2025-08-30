@@ -16,7 +16,9 @@ map("i", "<C-j>", "<Down>", { desc = "Move Down in Insert" })
 map("i", "<C-k>", "<Up>", { desc = "Move Up in Insert" })
 map("i", "<C-l>", "<Right>", { desc = "Move Right in Insert" })
 map("i", "<C-b>", "<ESC>^i", { desc = "Move to Beginning of Line in Insert" })
-map("i", "<C-e>", "<End>", { desc = "Move to End of Line in Insert" })
+-- Note: <C-e> removed to avoid conflict with blink.cmp completion menu
+-- Alternative: use <A-e> for end of line if needed
+-- map("i", "<A-e>", "<End>", { desc = "Move to End of Line in Insert" })
 
 -- Better Indenting (already done, but a must-have)
 map("v", "<", "<gv", { desc = "Unindent Selection" })

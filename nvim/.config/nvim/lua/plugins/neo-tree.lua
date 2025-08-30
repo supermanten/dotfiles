@@ -67,16 +67,25 @@ return {
 			},
 		},
 		window = {
-			width = 30, -- Default 40
+			width = 35,
 			winblend = 10,
 			mappings = {
 				["q"] = "close_window",
 				["?"] = "noop",
 				["g?"] = "show_help",
 				["<leader>"] = "noop",
+				["<C-v>"] = "open_vsplit",
+				["<C-x>"] = "open_split",
+				["<C-t>"] = "open_tabnew",
+				["<C-c>"] = "copy",
+				["<C-r>"] = "rename",
+				["<C-d>"] = "delete",
+				["<C-n>"] = "add",
+				["R"] = "refresh",
+				["H"] = "toggle_hidden",
 			},
 		},
-		iltered_items = {
+		filtered_items = {
 			hide_dotfiles = false,
 			hide_gitignored = false,
 			hide_by_name = {

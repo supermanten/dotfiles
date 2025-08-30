@@ -32,6 +32,10 @@ require("lazy").setup({
 				"man",
 			},
 		},
+		reset_packpath = true,
+		cache = {
+			enabled = true,
+		},
 	},
 	ui = {
 		size = { width = 0.8, height = 0.8 },
