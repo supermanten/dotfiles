@@ -10,12 +10,12 @@ return {
 		},
 		keywords = {
 			FIX = {
-				icon = " ", -- A wrench icon
+				icon = " ", -- A wrench icon
 				color = "error",
 				alt = { "FIXME", "BUG", "ISSUE" }, -- Aliases
 			},
 			TODO = {
-				icon = " ", -- A checkmark icon
+				icon = " ", -- A checkmark icon
 				color = "info",
 			},
 			WARNING = {
@@ -24,9 +24,14 @@ return {
 				alt = { "WARN", "CAUTION" },
 			},
 			PERF = {
-				icon = "󰅒",
+				icon = "󰅒 ",
 				color = "hint",
 				alt = { "PERFORMANCE", "OPTIMIZE" },
+			},
+			NOTE = {
+				icon = " ",
+				color = "hint",
+				alt = { "INFO" },
 			},
 		},
 

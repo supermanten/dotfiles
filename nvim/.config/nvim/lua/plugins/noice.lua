@@ -11,12 +11,12 @@ return {
 			view = "cmdline_popup",
 			opts = { position = { row = 5, col = "50%" } },
 			format = {
-				cmdline = { pattern = "^:", icon = "💻", lang = "vim" },
-				search_down = { pattern = "^/", icon = "🔍 ⬇", lang = "regex" },
-				search_up = { pattern = "^%?", icon = "🔍 ⬆", lang = "regex" },
-				filter = { pattern = "^:%s*!", icon = "⚡", lang = "bash" },
-				lua = { pattern = "^:%s*lua%s+", icon = "🌙", lang = "lua" },
-				help = { pattern = "^:%s*he?l?p?%s+", icon = "📚" },
+				cmdline = { pattern = "^:", icon = " ", lang = "vim" },
+				search_down = { pattern = "^/", icon = " ⌄", lang = "regex" },
+				search_up = { pattern = "^%?", icon = " ⌃", lang = "regex" },
+				filter = { pattern = "^:%s*!", icon = " ", lang = "bash" },
+				lua = { pattern = "^:%s*lua%s+", icon = " ", lang = "lua" },
+				help = { pattern = "^:%s*he?l?p?%s+", icon = "󰋖 ", lang = "vim" },
 			},
 		},
 		routes = {

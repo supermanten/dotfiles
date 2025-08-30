@@ -16,7 +16,7 @@ return {
 		},
 		options = {
 			indicator = {
-				icon = "🔥",
+				icon = "▎",
 				style = "icon",
 			},
 			offsets = {
@@ -32,21 +32,21 @@ return {
 			always_show_bufferline = true,
 			diagnostics_indicator = function(_, _, diag)
 				local icons = {
-					Error = "❌ ",
-					Warn = "⚠️ ",
-					Hint = "💡 ",
-					Info = "ℹ️ ",
+					Error = " ",
+					Warn = " ",
+					Hint = " ",
+					Info = " ",
 				}
 				local ret = (diag.error and icons.Error .. diag.error .. " " or "")
 					.. (diag.warning and icons.Warn .. diag.warning or "")
 				return vim.trim(ret)
 			end,
 			mode = "buffers",
-			buffer_close_icon = "❌", -- Custom close icon
-			close_icon = "🚪", -- Icon for closing all the tabs
-			modified_icon = "✏️", -- Icon for modified buffers
-			left_trunc_marker = "⬅️", -- Marker for left overflow
-			right_trunc_marker = "➡️", -- Marker for right overflow
+			buffer_close_icon = "󰅖", -- Custom close icon
+			close_icon = "󰅙", -- Icon for closing all the tabs
+			modified_icon = "●", -- Icon for modified buffers
+			left_trunc_marker = "", -- Marker for left overflow
+			right_trunc_marker = "", -- Marker for right overflow
 			max_name_length = 18, -- Set a max buffer name length
 			max_prefix_length = 15, -- Set a max prefix length for truncated buffers
 			tab_size = 20, -- Set minimum tab size for buffers
