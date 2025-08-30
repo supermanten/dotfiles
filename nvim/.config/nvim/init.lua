@@ -28,6 +28,8 @@ require("lazy").setup({
 				"tohtml",
 				"tutor",
 				"zipPlugin",
+				"spellfile_plugin",
+				"man",
 			},
 		},
 	},
