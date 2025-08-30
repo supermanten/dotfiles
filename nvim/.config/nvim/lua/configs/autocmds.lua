@@ -144,23 +144,28 @@ vim.api.nvim_create_autocmd({ "UiEnter", "ColorScheme" }, {
     ]])
 		--4.
 		vim.cmd("hi StatusLine guibg=NONE ctermbg=NONE")
+		-- Additional transparency
+		vim.cmd("hi SignColumn guibg=NONE")
+		vim.cmd("hi FoldColumn guibg=NONE")
+		vim.cmd("hi VertSplit guibg=NONE")
+		vim.cmd("hi LineNr guibg=NONE")
 	end,
 })
 
 -- Dim inactive windows
--- vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.wo.winhighlight = "Normal:Normal,NormalNC:Normal"
--- 	end,
--- })
---
--- vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.wo.winhighlight = "Normal:ColorColumn,NormalNC:ColorColumn"
--- 	end,
--- })
+vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained" }, {
+	pattern = "*",
+	callback = function()
+		vim.wo.winhighlight = "Normal:Normal,NormalNC:Normal"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "FocusLost" }, {
+	pattern = "*",
+	callback = function()
+		vim.wo.winhighlight = "Normal:Normal,NormalNC:NormalNC"
+	end,
+})
 
 -- Show relative line numbers in normal mode, absolute in insert mode
 vim.opt.number = true
