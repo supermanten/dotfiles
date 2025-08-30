@@ -218,7 +218,7 @@ map("n", "gi", function()
 	end
 end, { desc = "Go to Implementation" })
 
-map("n", "gr", function()
+map("n", "gi", function()
 	local ok, _ = pcall(vim.lsp.buf.references)
 	if not ok then
 		vim.notify("LSP references not available", vim.log.levels.WARN)
@@ -238,3 +238,4 @@ map("n", "<C-k>", function()
 		vim.notify("LSP signature help not available", vim.log.levels.WARN)
 	end
 end, { desc = "Signature Help" })
+

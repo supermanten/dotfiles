@@ -32,7 +32,7 @@ map("n", "<ESC>", "<cmd>noh<CR>", { desc = "Clear Highlights" })
 -- ## Window Management
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right" })
-map("n", "<leader>q", "<C-W>c", { desc = "Close Window" })
+map("n", "<leader>qw", "<C-W>c", { desc = "Close Window" })
 map("n", "<leader>wo", "<C-W>o", { desc = "Close Other Windows" })
 map("n", "<leader>wt", "<C-W>T", { desc = "Move Window to New Tab" })
 map("n", "<leader>wr", "<C-W>r", { desc = "Rotate Windows" })
@@ -55,3 +55,4 @@ map("n", "<leader>wH", "<C-W>H", { desc = "Move Window Left" })
 map("n", "<leader>wJ", "<C-W>J", { desc = "Move Window Down" })
 map("n", "<leader>wK", "<C-W>K", { desc = "Move Window Up" })
 map("n", "<leader>wL", "<C-W>L", { desc = "Move Window Right" })
+
