@@ -66,7 +66,10 @@ return {
 				vim.diagnostic.config({
 					virtual_text = not config.virtual_text,
 				})
-				vim.notify(config.virtual_text and "Virtual text disabled" or "Virtual text enabled", vim.log.levels.INFO)
+				vim.notify(
+					config.virtual_text and "Virtual text disabled" or "Virtual text enabled",
+					vim.log.levels.INFO
+				)
 			end, { desc = "Toggle diagnostic virtual text" })
 
 			-- Add keybinding to restart LSP servers (useful if duplicates occur)
@@ -85,21 +88,43 @@ return {
 				"jdtls",
 			} -- rust_analyzer need rust-src need installed
 
+			-- Prevent duplicate LSP setup by using a registry
+			local lsp_registry = {}
+
 			for _, lsp in ipairs(servers) do
 				local ok_setup, err = pcall(function()
-					-- Check if LSP is already running to prevent duplicates
-					local clients = vim.lsp.get_clients({ name = lsp })
-					if #clients > 0 then
-						vim.notify("LSP " .. lsp .. " already running, skipping duplicate setup", vim.log.levels.INFO)
-						goto continue
+					-- Check registry first (more reliable than get_clients during startup)
+					if lsp_registry[lsp] then
+						vim.notify(
+							"LSP " .. lsp .. " already registered, skipping duplicate setup",
+							vim.log.levels.DEBUG
+						)
+						return
 					end
+
+					-- Mark as registered
+					lsp_registry[lsp] = true
 
 					lspconfig[lsp].setup({
 						capabilities = capabilities,
 						-- Prevent duplicate LSP servers
 						single_file_support = false,
+						-- Add on_attach to handle cleanup
+						on_attach = function(_, bufnr)
+							-- Ensure only one client per buffer per server
+							local clients = vim.lsp.get_clients({ bufnr = bufnr, name = lsp })
+							if #clients > 1 then
+								vim.notify(
+									"Multiple " .. lsp .. " clients detected, keeping only one",
+									vim.log.levels.WARN
+								)
+								-- Keep the first client, stop others
+								for i = 2, #clients do
+									clients[i]:stop()
+								end
+							end
+						end,
 					})
-					::continue::
 				end)
 				if not ok_setup then
 					vim.notify("Failed to setup LSP " .. lsp .. ": " .. err, vim.log.levels.WARN)
