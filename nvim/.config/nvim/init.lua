@@ -103,5 +103,5 @@ require("lazy").setup({
 
 local colorify = require("nvchad.colorify")
 colorify.run()
-require("configs.keymaps")
 require("configs.autocmds")
+require("configs.keymaps")

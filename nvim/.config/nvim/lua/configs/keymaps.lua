@@ -119,3 +119,8 @@ map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
 
 -- ## Alpha
 map("n", "<leader>h", "<cmd>Alpha<CR>", { desc = "Alpha" })
+
+---------------------------------------------------
+
+-- ## ToggleContrast
+map("n", "<leader>Hc", "<cmd>ToggleContrast<CR>", { desc = "Toggle High Contrast" })

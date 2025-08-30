@@ -175,3 +175,15 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 	pattern = "*",
 	command = "setlocal relativenumber",
 })
+
+vim.api.nvim_create_user_command("ToggleContrast", function()
+	local current = vim.g.high_contrast or false
+	if current then
+		vim.cmd("colorscheme catppuccin")
+		vim.g.high_contrast = false
+	else
+		vim.cmd("hi Normal guibg=#000000 guifg=#ffffff")
+		vim.cmd("hi Comment guifg=#888888")
+		vim.g.high_contrast = true
+	end
+end, {})
