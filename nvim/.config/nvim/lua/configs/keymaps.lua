@@ -77,7 +77,7 @@ map("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
 map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete Buffer" })
 map("n", "<leader>bD", "<cmd>bdelete!<cr>", { desc = "Force Delete Buffer" })
-map("n", "<leader>bo", "<cmd>%bd|e#<cr>", { desc = "Close Other Buffers" })
+map("n", "<leader>bc", "<cmd>%bd|e#<cr>", { desc = "Close Other Buffers" })
 
 -- Neo Tree
 map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle File Explorer" })
@@ -177,7 +177,7 @@ end, { desc = "Show startup time" })
 -- ## Quality of Life Improvements
 -- Better search
 map("n", "<leader>nh", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
-map("n", "<leader>*", "<cmd>keepjumps normal! mi*`i<CR>", { desc = "Search word under cursor" })
+map("n", "<leader>sw", "<cmd>keepjumps normal! mi*`i<CR>", { desc = "Search word under cursor" })
 
 -- Line operations
 map("n", "<leader>cl", "<cmd>center<CR>", { desc = "Center current line" })
