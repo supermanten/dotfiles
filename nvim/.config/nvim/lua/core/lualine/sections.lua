@@ -6,14 +6,14 @@ local lazy_status = require("lazy.status")
 
 -- Define mode colors
 local modecolor = {
-	n = colors.blue,
+	n = colors.red,
 	no = colors.blue,
 	i = colors.green,
 	ic = colors.green,
 	v = colors.purple,
 	[""] = colors.bright_purple,
 	V = colors.purple,
-	c = colors.orange,
+	c = colors.bright_purple,
 	t = colors.bright_orange,
 	R = colors.red,
 	Rv = colors.bright_red,
@@ -33,9 +33,9 @@ local M = {
 		{
 			"mode",
 			color = function()
-				return { bg = modecolor[vim.fn.mode()], fg = colors.bg_dark, gui = "bold" }
+				return { bg = modecolor[vim.fn.mode()], fg = colors.bg, gui = "bold" }
 			end,
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = " " },
 			icon = " ",
 			padding = { left = 1, right = 1 },
 		},
@@ -45,13 +45,13 @@ local M = {
 			function()
 				return " "
 			end,
-			color = { bg = colors.bg_dark, fg = colors.blue },
+			color = { bg = colors.bg, fg = colors.blue },
 		},
 		{
 			"branch",
 			icon = " ",
 			color = { bg = colors.gray3, fg = colors.green, gui = "bold" },
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = " " },
 			padding = { left = 1, right = 1 },
 		},
 	},
@@ -84,7 +84,7 @@ local M = {
 			lazy_status.updates,
 			cond = lazy_status.has_updates,
 			color = { fg = colors.bright_orange, bg = colors.gray2 },
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = " " },
 			padding = { left = 1, right = 1 },
 		},
 		{
@@ -95,19 +95,19 @@ local M = {
 		{
 			"encoding",
 			color = { fg = colors.cyan, bg = colors.gray2 },
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = " " },
 			padding = { left = 1, right = 1 },
 		},
 		{
 			"fileformat",
 			color = { fg = colors.magenta, bg = colors.gray2 },
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = " " },
 			padding = { left = 1, right = 1 },
 		},
 		{
 			"filetype",
 			color = { fg = colors.blue, bg = colors.gray2 },
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = "" },
 			padding = { left = 1, right = 1 },
 		},
 	},
@@ -115,13 +115,13 @@ local M = {
 		{
 			"progress",
 			color = { fg = colors.fg, bg = colors.gray3 },
-			separator = { left = "", right = "" },
+			separator = { left = " ", right = "" },
 			padding = { left = 1, right = 1 },
 		},
 		{
 			"location",
 			color = { fg = colors.fg, bg = colors.gray3 },
-			separator = { left = "", right = "" },
+			separator = { left = "", right = " " },
 			icon = " ",
 			padding = { left = 1, right = 1 },
 		},
@@ -131,8 +131,8 @@ local M = {
 			function()
 				return " " .. os.date("%R")
 			end,
-			color = { fg = colors.bg_dark, bg = colors.cyan },
-			separator = { left = "", right = "" },
+			color = { fg = colors.bg, bg = colors.cyan },
+			separator = { left = " ", right = " " },
 			padding = { left = 1, right = 1 },
 		},
 	},
@@ -143,8 +143,8 @@ local M = {
 				"filename",
 				path = 1,
 				symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
-				color = { fg = colors.fg, bg = colors.gray1 },
-				separator = { left = "", right = "" },
+				color = { fg = colors.fg, bg = colors.bg },
+				separator = { left = " ", right = " " },
 				padding = { left = 1, right = 1 },
 			},
 		},
@@ -159,8 +159,8 @@ local M = {
 			{
 				"filename",
 				path = 1,
-				color = { fg = colors.subtext3, bg = colors.gray0 },
-				separator = { left = "", right = "" },
+				color = { fg = colors.subtext3, bg = colors.bg },
+				separator = { left = " ", right = " " },
 				padding = { left = 1, right = 1 },
 			},
 		},

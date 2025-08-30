@@ -2,7 +2,7 @@
 
 local M = {
 	-- Base colors
-	bg = "#0f0f23",
+	bg = "",
 	fg = "#e2e8f0",
 	subtext1 = "#cbd5e1",
 	subtext2 = "#94a3b8",
