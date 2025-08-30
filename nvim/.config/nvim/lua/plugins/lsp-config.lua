@@ -41,6 +41,40 @@ return {
 				return
 			end
 
+			-- Configure diagnostic display (error lenses)
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "●",
+					spacing = 4,
+				},
+				signs = true, -- Enable signs
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
+			})
+
+			-- Set diagnostic signs
+			local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+			for type, icon in pairs(signs) do
+				local hl = "DiagnosticSign" .. type
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			end
+
+			-- Optional: Add keybinding to toggle virtual text
+			vim.keymap.set("n", "<leader>dv", function()
+				local config = vim.diagnostic.config()
+				vim.diagnostic.config({
+					virtual_text = not config.virtual_text,
+				})
+				vim.notify(config.virtual_text and "Virtual text disabled" or "Virtual text enabled", vim.log.levels.INFO)
+			end, { desc = "Toggle diagnostic virtual text" })
+
+			-- Add keybinding to restart LSP servers (useful if duplicates occur)
+			vim.keymap.set("n", "<leader>lr", function()
+				vim.cmd("LspRestart")
+				vim.notify("LSP servers restarted", vim.log.levels.INFO)
+			end, { desc = "Restart LSP servers" })
+
 			local servers = {
 				"lua_ls",
 				"dartls",
@@ -53,9 +87,19 @@ return {
 
 			for _, lsp in ipairs(servers) do
 				local ok_setup, err = pcall(function()
+					-- Check if LSP is already running to prevent duplicates
+					local clients = vim.lsp.get_clients({ name = lsp })
+					if #clients > 0 then
+						vim.notify("LSP " .. lsp .. " already running, skipping duplicate setup", vim.log.levels.INFO)
+						goto continue
+					end
+
 					lspconfig[lsp].setup({
 						capabilities = capabilities,
+						-- Prevent duplicate LSP servers
+						single_file_support = false,
 					})
+					::continue::
 				end)
 				if not ok_setup then
 					vim.notify("Failed to setup LSP " .. lsp .. ": " .. err, vim.log.levels.WARN)
