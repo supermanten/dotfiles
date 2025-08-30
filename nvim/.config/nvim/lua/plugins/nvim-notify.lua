@@ -30,8 +30,8 @@ return {
 		-- Position and animation
 		top_down = true, -- Show from bottom
 		-- Custom highlights
-		on_open = function(win)
-			vim.api.nvim_win_set_option(win, "winblend", 10)
+		on_open = function(_)
+			vim.api.nvim_set_option_value("winblend", 10, { scope = "local" })
 		end,
 	},
 }

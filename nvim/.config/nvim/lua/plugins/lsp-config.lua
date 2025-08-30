@@ -61,60 +61,77 @@ return {
 			})
 
 			-- Enhanced hover and signature help
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-				vim.lsp.handlers.hover,
-				{
-					border = "rounded",
-					max_width = 80,
-					max_height = 20,
-				}
-			)
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				border = "rounded",
+				max_width = 80,
+				max_height = 20,
+			})
 
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-				vim.lsp.handlers.signature_help,
-				{
-					border = "rounded",
-					max_width = 80,
-					max_height = 20,
-				}
-			)
+			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+				border = "rounded",
+				max_width = 80,
+				max_height = 20,
+			})
 
 			-- Configure inlay hints (if supported by LSP)
 			vim.lsp.inlay_hint.enable(true)
 
 			-- Enhanced LSP capabilities
-			local enhanced_capabilities = vim.tbl_deep_extend(
-				"force",
-				capabilities,
-				{
-					textDocument = {
-						inlayHint = {
-							dynamicRegistration = false,
-							resolveSupport = {
-								properties = { "tooltip", "location", "command" },
-							},
-						},
-						codeLens = {
-							dynamicRegistration = false,
-						},
-						semanticTokens = {
-							dynamicRegistration = false,
-							tokenTypes = {
-								"namespace", "type", "class", "enum", "interface", "struct", "typeParameter",
-								"parameter", "variable", "property", "enumMember", "event", "function", "method",
-								"macro", "keyword", "modifier", "comment", "string", "number", "regexp", "operator"
-							},
-							tokenModifiers = {
-								"declaration", "definition", "readonly", "static", "deprecated", "abstract",
-								"async", "modification", "documentation", "defaultLibrary"
-							},
-							formats = { "relative" },
-							overlappingTokenSupport = true,
-							multilineTokenSupport = true,
+			local enhanced_capabilities = vim.tbl_deep_extend("force", capabilities, {
+				textDocument = {
+					inlayHint = {
+						dynamicRegistration = false,
+						resolveSupport = {
+							properties = { "tooltip", "location", "command" },
 						},
 					},
-				}
-			)
+					codeLens = {
+						dynamicRegistration = false,
+					},
+					semanticTokens = {
+						dynamicRegistration = false,
+						tokenTypes = {
+							"namespace",
+							"type",
+							"class",
+							"enum",
+							"interface",
+							"struct",
+							"typeParameter",
+							"parameter",
+							"variable",
+							"property",
+							"enumMember",
+							"event",
+							"function",
+							"method",
+							"macro",
+							"keyword",
+							"modifier",
+							"comment",
+							"string",
+							"number",
+							"regexp",
+							"operator",
+						},
+						tokenModifiers = {
+							"declaration",
+							"definition",
+							"readonly",
+							"static",
+							"deprecated",
+							"abstract",
+							"async",
+							"modification",
+							"documentation",
+							"defaultLibrary",
+						},
+						formats = { "relative" },
+						overlappingTokenSupport = true,
+						multilineTokenSupport = true,
+					},
+				},
+			})
 
 			-- Set diagnostic signs
 			local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -150,17 +167,14 @@ return {
 				"clangd",
 				"jdtls",
 				-- Additional language servers
-				"ts_ls",      -- TypeScript/JavaScript
-				"html",       -- HTML
-				"cssls",      -- CSS
-				"jsonls",     -- JSON
-				"yamlls",     -- YAML
-				"bashls",     -- Bash
-				"dockerls",   -- Docker
+				"ts_ls", -- TypeScript/JavaScript
+				"html", -- HTML
+				"cssls", -- CSS
+				"jsonls", -- JSON
+				"yamlls", -- YAML
+				"bashls", -- Bash
+				"dockerls", -- Docker
 			} -- rust_analyzer need rust-src need installed
-
-			-- Prevent duplicate LSP setup by using a registry
-			local lsp_registry = {}
 
 			for _, lsp in ipairs(servers) do
 				local ok_setup, err = pcall(function()
@@ -170,9 +184,6 @@ return {
 						vim.notify("LSP " .. lsp .. " already running, skipping duplicate setup", vim.log.levels.DEBUG)
 						return
 					end
-
-					-- Mark as registered
-					lsp_registry[lsp] = true
 
 					-- Server-specific configurations
 					local server_opts = {
@@ -236,7 +247,6 @@ return {
 					-- Add enhanced on_attach function
 					server_opts.on_attach = function(client, bufnr)
 						-- Ensure only one client per buffer per server
-						local clients = vim.lsp.get_clients({ bufnr = bufnr, name = lsp })
 						if #clients > 1 then
 							vim.notify("Multiple " .. lsp .. " clients detected, keeping only one", vim.log.levels.WARN)
 							-- Keep the first client, stop others
@@ -263,24 +273,24 @@ return {
 						local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
 						-- Go to declaration (separate from definition)
-						vim.keymap.set('n', '<leader>lD', vim.lsp.buf.declaration, bufopts)
+						vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, bufopts)
 
 						-- Show type definition
-						vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, bufopts)
+						vim.keymap.set("n", "<leader>lt", vim.lsp.buf.type_definition, bufopts)
 
 						-- Show implementations
-						vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts)
+						vim.keymap.set("n", "<leader>li", vim.lsp.buf.implementation, bufopts)
 
 						-- Show signature help
-						vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+						vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 
 						-- Format document
-						vim.keymap.set('n', '<leader>lf', function()
+						vim.keymap.set("n", "<leader>lf", function()
 							vim.lsp.buf.format({ async = true })
 						end, bufopts)
 
 						-- Toggle inlay hints
-						vim.keymap.set('n', '<leader>lh', function()
+						vim.keymap.set("n", "<leader>lh", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 						end, bufopts)
 
