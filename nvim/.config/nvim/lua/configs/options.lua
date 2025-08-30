@@ -2,101 +2,97 @@ local opt = vim.opt
 local o = vim.o
 local g = vim.g
 
----------------------------------neovide-------------------------------------------------
+-- Neovide settings (cleaner and more consistent)
 if g.neovide then
 	g.neovide_opacity = 0.8
 	g.neovide_cursor_animation_length = 0.13
 	g.neovide_cursor_trail_length = 0.00
 	g.neovide_cursor_trail_size = 0.3
 	g.neovide_cursor_vfx_mode = "railgun"
-	g.neovide_remember_dimensions = true
-	g.neovide_remember_window_size = true
+	g.neovide_remember_window_size = true -- Use the more modern option
 
-	-- neovide boarders
+	-- neovide padding (can be simplified if all are 0)
 	g.neovide_padding_top = 0
 	g.neovide_padding_bottom = 0
 	g.neovide_padding_right = 0
 	g.neovide_padding_left = 0
 
-	--scroll animation length
+	-- Scroll and refresh rate
 	g.neovide_scroll_animation_length = 0.3
-
-	--refresh rate
 	g.neovide_refresh_rate = 60
 
-	--border-radius
-	g.neovide_floating_corner_radius = 0
+	-- Floating window corner radius (consider a small value for a modern look)
+	g.neovide_floating_corner_radius = 8
 
-	--curently mac only
+	-- macOS only
 	g.neovide_show_border = false
 
-	---hide mouse when typing
+	-- Hide mouse when typing
 	g.neovide_hide_mouse_when_typing = true
-	---theme
 	g.neovide_theme = "auto"
+
+	-- Font rendering and scaling (optional but can be useful)
+	g.neovide_text_gamma = 0.8
 end
--------------------------------------- options ------------------------------------------
 
+----------------------------------- General Options ------------------------------------
+
+-- Swap file and undo
 opt.swapfile = false
+opt.undofile = true
+opt.undolevels = 1000 -- Store more undo history
 
-o.laststatus = 3
-o.showmode = false
+-- Status line and UI
+opt.laststatus = 3
+opt.showmode = false
+opt.fillchars = { eob = " ", vert = "│" } -- Better visual separation
+opt.signcolumn = "yes"
+opt.mouse = "a"
 
-o.clipboard = "unnamedplus"
-o.cursorline = true
-o.cursorlineopt = "number"
+-- Clipboard
+opt.clipboard = "unnamedplus"
 
--- Indenting
-o.expandtab = true
-o.shiftwidth = 2
-o.smartindent = true
-o.tabstop = 2
-o.softtabstop = 2
+-- Cursor and line numbers
+opt.cursorline = true
+opt.cursorlineopt = "number"
+opt.number = true -- Absolute line numbers
+opt.relativenumber = true -- Relative line numbers for easier navigation
+opt.numberwidth = 2
+opt.ruler = false
 
-opt.fillchars = { eob = " " }
-o.ignorecase = true
-o.smartcase = true
-o.mouse = "a"
+-- Indenting and tabs
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.smartindent = true
+opt.tabstop = 2
+opt.softtabstop = 2
 
--- Numbers
-o.number = true
-o.numberwidth = 2
-o.ruler = false
+-- Searching
+opt.ignorecase = true
+opt.smartcase = true
 
--- disable nvim intro
-opt.shortmess:append("sI")
+-- Split windows
+opt.splitbelow = true
+opt.splitright = true
 
-o.signcolumn = "yes"
-o.splitbelow = true
-o.splitright = true
-o.timeoutlen = 400
-o.undofile = true
+-- Timeouts and updates
+opt.timeoutlen = 400
+opt.updatetime = 250
 
--- interval for writing swap file to disk, also used by gitsigns
-o.updatetime = 250
-
--- go to previous/next line with h,l,left arrow and right arrow
--- when cursor reaches end/beginning of line
+-- Wrappings and navigation
 opt.whichwrap:append("<>[]hl")
 
--- disable some default providers
+-- Disable default providers (more efficient)
 g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
+-- Global variables
 g.mapleader = " "
 g.background = "dark"
 
-vim.wo.number = true
-
--- lsp setup
-
--- provided by rust-analyzer.
-vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
-
--- Set to "pyright" to use the new LSP implementation version.
-vim.g.lazyvim_python_lsp = "pyright"
-
--- Set to "ruff_lsp" to use the old LSP implementation version.
-vim.g.lazyvim_python_ruff = "ruff"
+-- LazyVim LSP settings
+g.lazyvim_rust_diagnostics = "rust-analyzer"
+g.lazyvim_python_lsp = "pyright"
+g.lazyvim_python_ruff = "ruff"
