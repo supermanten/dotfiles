@@ -1,7 +1,9 @@
+-- File: lua/plugins/lsp.lua
+
 return {
+	-- 1. Mason plugin for managing LSP servers
 	{
 		"williamboman/mason.nvim",
-		lazy = true,
 		cmd = "Mason",
 		config = function()
 			require("mason").setup({
@@ -11,6 +13,8 @@ return {
 			})
 		end,
 	},
+
+	-- 2. Mason-Lspconfig for easy server integration
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = true,
@@ -18,33 +22,17 @@ return {
 		dependencies = { "williamboman/mason.nvim" },
 		opts = {
 			auto_install = true,
-			-- ensure_installed = { "lua_ls", "rust_analyzer" }
 		},
 	},
+
+	-- 3. nvim-lspconfig for the actual LSP setup
 	{
 		"neovim/nvim-lspconfig",
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
 		config = function()
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-			local lspconfig = require("lspconfig")
-
-			local servers = {
-				"lua_ls",
-				"dartls",
-				"gopls",
-				"pyright",
-				"rust_analyzer",
-				"clangd",
-				"jdtls",
-			} -- rust_analyzer need rust-src need installed
-			for _, lsp in ipairs(servers) do
-				lspconfig[lsp].setup({
-					capabilities = capabilities,
-				})
-			end
+			require("core.lsp").setup()
 		end,
 	},
 }
