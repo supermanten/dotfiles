@@ -4,25 +4,26 @@ return {
 		build = ":TSUpdate",
 		event = "BufReadPost",
 		config = function()
-			local ok, config = pcall(require, "nvim-treesitter.configs")
-			if not ok then
-				vim.notify("nvim-treesitter.configs not found", vim.log.levels.ERROR)
-				return
-			end
-
-			local ok_setup, err = pcall(function()
-				config.setup({
-					auto_install = true,
-					highlight = { enable = true },
-					indent = { enable = true },
-					incremental_selection = { enable = true },
-					textobjects = { enable = true },
-				})
-			end)
-
-			if not ok_setup then
-				vim.notify("Failed to setup treesitter: " .. err, vim.log.levels.ERROR)
-			end
+			local config = require("nvim-treesitter.configs")
+			config.setup({
+				auto_install = true,
+				highlight = {
+					enable = true,
+					-- Disable for large files to improve performance
+					disable = function(lang, buf)
+						local max_filesize = 100 * 1024 -- 100 KB
+						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+						if ok and stats and stats.size > max_filesize then
+							return true
+						end
+					end,
+				},
+				indent = { enable = true },
+				incremental_selection = { enable = true },
+				textobjects = { enable = true },
+				-- Disable additional features for better performance
+				ensure_installed = {}, -- Let auto_install handle this
+			})
 		end,
 	},
 }

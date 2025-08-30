@@ -131,3 +131,16 @@ vim.api.nvim_create_user_command("ToggleContrast", function()
 end, {})
 
 map("n", "<leader>hc", "<cmd>ToggleContrast<CR>", { desc = "Toggle High Contrast" })
+
+---------------------------------------------------
+
+-- ## Performance Monitoring
+map("n", "<leader>ps", "<cmd>Lazy profile<CR>", { desc = "Profile plugin startup time" })
+map("n", "<leader>pl", "<cmd>Lazy log<CR>", { desc = "Show Lazy logs" })
+map("n", "<leader>ph", "<cmd>Lazy health<CR>", { desc = "Check plugin health" })
+map("n", "<leader>pm", "<cmd>messages<CR>", { desc = "Show recent messages" })
+map("n", "<leader>pt", function()
+	local stats = require("lazy").stats()
+	local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
+	vim.notify(string.format("⚡ Neovim loaded %d/%d plugins in %s ms", stats.loaded, stats.count, ms), vim.log.levels.INFO)
+end, { desc = "Show startup time" })
