@@ -131,7 +131,7 @@ local M = {
 			function()
 				return " " .. os.date("%R")
 			end,
-			color = { fg = colors.bg, bg = colors.gray4 },
+			color = { fg = colors.bg, bg = colors.gray0 },
 			separator = { left = "", right = "" },
 			padding = { left = 1, right = 1 },
 		},
