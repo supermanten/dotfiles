@@ -18,13 +18,14 @@ return {
 				},
 				defaults = {
 					initial_mode = "insert",
-					prompt_prefix = "   ",
-					selection_caret = "▍ ",
-					multi_icon = " ",
-					entry_prefix = " ",
+					prompt_prefix = " 🔍 ",
+					selection_caret = " ▶ ",
+					multi_icon = " 🔘 ",
+					entry_prefix = " 📄 ",
 					path_display = { "truncate" },
 					file_ignore_patterns = { "node_modules" },
 					sorting_strategy = "ascending",
+					winblend = 10,
 					layout_config = {
 						horizontal = {
 							prompt_position = "top",
