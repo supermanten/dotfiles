@@ -114,3 +114,8 @@ map("v", "<A-j>", ":move '>+1<CR>gv=gv", { desc = "Move Selection Down" })
 map("v", "<A-k>", ":move '<-2<CR>gv=gv", { desc = "Move Selection Up" })
 map("i", "<A-j>", "<Esc>:move .+1<CR>==gi", { desc = "Move Line Down" })
 map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
+
+---------------------------------------------------
+
+-- ## Alpha
+map("n", "<leader>h", "<cmd>Alpha<CR>", { desc = "Alpha" })
