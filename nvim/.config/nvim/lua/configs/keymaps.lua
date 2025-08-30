@@ -82,7 +82,7 @@ map("n", "<leader>fs", builtin.symbols, { desc = "Find Symbols" })
 -- ## LSP
 -- Grouped under leader + l
 map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "LSP Definition" })
-map("n", "<leader>lr", vim.lsp.buf.references, { desc = "LSP References" })
+map("n", "<leader>li", vim.lsp.buf.references, { desc = "LSP References" })
 map("n", "<leader>la", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 map("n", "<leader>ln", vim.lsp.buf.rename, { desc = "LSP Rename" })
 map("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "LSP Symbols" })
@@ -115,7 +115,7 @@ map("n", "<A-k>", ":move .-2<CR>==", { desc = "Move Line Up" })
 map("v", "<A-j>", ":move '>+1<CR>gv=gv", { desc = "Move Selection Down" })
 map("v", "<A-k>", ":move '<-2<CR>gv=gv", { desc = "Move Selection Up" })
 map("i", "<A-j>", "<Esc>:move .+1<CR>==gi", { desc = "Move Line Down" })
-	map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
+map("i", "<A-k>", "<Esc>:move .-2<CR>==gi", { desc = "Move Line Up" })
 
 -- Toggle high-contrast mode
 vim.api.nvim_create_user_command("ToggleContrast", function()
@@ -131,4 +131,3 @@ vim.api.nvim_create_user_command("ToggleContrast", function()
 end, {})
 
 map("n", "<leader>hc", "<cmd>ToggleContrast<CR>", { desc = "Toggle High Contrast" })
-
